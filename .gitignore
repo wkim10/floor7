@@ -1,0 +1,13 @@
+node_modules/
+.env*
+npm-debug.log*
+package-lock.json
+
+# MacOS
+.DS_STORE
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
