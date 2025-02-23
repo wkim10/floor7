@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import http from "http";
 import socket from "socket.io";
-import { ServerState, User } from "../types/index";
+import { ServerState } from "../types/index"
 
 const PORT = process.env.PORT || 8000;
 
