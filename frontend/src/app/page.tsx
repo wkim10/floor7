@@ -1,217 +1,37 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { io } from "socket.io-client";
-import { ServerState, User } from "./types/index";
-import useAppStore from "@/store";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
-export const socket = io("http://localhost:8000");
-
-const SocketDemo = () => {
-  const {
-    username,
-    setUsername,
-    connected,
-    setConnected,
-    serverState,
-    setServerState,
-    socketId,
-    setSocketId,
-  } = useAppStore();
-
-  const id = socket["id"];
-  console.log(id);
-  const tileSizeInPixels: number = 40;
-
-  useEffect(() => {
-    // Connection status
-    socket.on("connect", () => {
-      setSocketId(socket.id ?? "");
-      setConnected(true);
-      console.log("Connected to server");
-    });
-
-    socket.on("disconnect", () => {
-      setConnected(false);
-      console.log("Disconnected from server");
-    });
-
-    socket.on("serverStateUpdate", (newServerState: ServerState) => {
-      console.log("serverState updated", newServerState);
-      setServerState(newServerState);
-    });
-
-    socket.on("moveToTile", (x: number, y: number) => {});
-
-    return () => {
-      socket.off("connect");
-      socket.off("disconnect");
-      socket.off("serverStateUpdate");
-    };
-  }, [serverState, setServerState, setConnected]);
-
-  useEffect(() => {
-    // Move user around
-    const moveUser = (event: KeyboardEvent) => {
-      const movementDeltas = { x: 0, y: 0 };
-
-      if (event.key === "ArrowUp" || event.key === "w") {
-        movementDeltas.y -= 1;
-      } else if (event.key === "ArrowDown" || event.key === "s") {
-        movementDeltas.y += 1;
-      } else if (event.key === "ArrowLeft" || event.key === "a") {
-        movementDeltas.x -= 1;
-      } else if (event.key === "ArrowRight" || event.key === "d") {
-        movementDeltas.x += 1;
-      }
-
-      socket.emit("moveUser", [movementDeltas.x, movementDeltas.y]);
-    };
-    document.addEventListener("keydown", moveUser);
-    return () => document.removeEventListener("keydown", moveUser);
-  }, []);
-
-  // Creates user
-  const createUser = (e: any) => {
-    e.preventDefault();
-    if (username.trim()) {
-      socket.emit("createUser", username);
-      setUsername("");
-    }
-  };
+export default function Home() {
+  const router = useRouter();
 
   return (
-    <div className="h-full w-full p-4 flex flex-col bg-white text-black gap-y-8">
-      <div className="mb-4">
-        <div className="text-lg font-bold">
-          <span>
-            Status:{" "}
-            {connected ? (
-              <span className="text-green-600">Connected</span>
-            ) : (
-              <span className="text-red-600">Disconnected</span>
-            )}
-          </span>
-          <span>Socket id: {socketId}</span>
-        </div>
+    <div className="flex flex-col items-center justify-center h-screen gap-[25px]">
+      <Image
+        src="/images/jumbo.png"
+        alt="jumbo"
+        className="h-[188px] w-[188px] rounded-full shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]"
+        height={188}
+        width={188}
+      />
+      <div className="text-[32px] text-center max-w-[638px] font-bold shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] p-3 rounded-xl bg-white bg-opacity-90">
+        Welcome to the Tufts University Virtual Career Fair!
       </div>
-
-      <form onSubmit={createUser} className="mb-4">
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="border p-2 rounded mr-2"
-          placeholder="Choose a username"
-        />
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+      <div className="flex gap-5">
+        <div
+          onClick={() => router.push("/create-profile")}
+          className="shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] bg-[#273CB2] cursor-pointer rounded-xl p-3 text-white"
         >
-          Create user
-        </button>
-      </form>
-
-      <div>
-        {Object.values(serverState.connections).map((user: User, index) => {
-          return (
-            <div key={index}>
-              <p
-                style={{
-                  position: "absolute",
-                  left: user.coordinate[0],
-                  top: user.coordinate[1],
-                  transition: "0.1s ease",
-                }}
-              >
-                {user.username}
-              </p>
-              <p key={user.username}>
-                x: {user.coordinate[0]}, y: {user.coordinate[1]}
-              </p>
-            </div>
-          );
-        })}
-      </div>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(${serverState.map.length}, ${40}px)`,
-          gridTemplateRows: `repeat(${serverState.map[0].length}, ${40}px)`,
-          gap: "0px",
-        }}
-      >
-        {serverState.map.map((block, rowIndex) =>
-          block.map((users, colIndex) => {
-            const tileKey = `${rowIndex}-${colIndex}`;
-            return (
-              <div
-                key={tileKey}
-                style={{
-                  width: tileSizeInPixels,
-                  height: tileSizeInPixels,
-                  backgroundColor: `${
-                    users.length > 0
-                      ? users.length > 1
-                        ? "purple"
-                        : "red"
-                      : "lightblue"
-                  }`,
-                  border: "1px solid black",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  position: "relative",
-                }}
-              >
-                {users.length > 0 && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "-20px",
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      whiteSpace: "nowrap",
-                      fontSize: "12px",
-                      backgroundColor: "rgba(255, 255, 255, 0.8)",
-                      padding: "2px 4px",
-                      borderRadius: "4px",
-                    }}
-                  >
-                    {users.map((user) => {
-                      return (
-                        <div
-                          key={user[0]}
-                          className="flex flex-col space-y-2 w-full text-[6px]"
-                        >
-                          <div
-                            key={user[1].username}
-                            className="flex w-full justify-center"
-                          >
-                            {user[1].username}
-                          </div>
-                          {(serverState.proximityMap[user[0]] || []).map(
-                            (otherSocketId) => (
-                              <div key={otherSocketId} className="text-center">
-                                {otherSocketId}
-                              </div>
-                            )
-                          )}
-                        </div>
-                      );
-                    })}
-                    {/* {users.map((user) => {
-                      <div>Hi</div>;
-                    })} */}
-                  </div>
-                )}
-              </div>
-            );
-          })
-        )}
+          Register to attend
+        </div>
+        <div
+          onClick={() => router.push("/welcome-back")}
+          className="shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] bg-[#273CB2] cursor-pointer rounded-xl p-3 text-white"
+        >
+          Continue to Career Fair
+        </div>
       </div>
     </div>
   );
 };
-
-export default SocketDemo;
