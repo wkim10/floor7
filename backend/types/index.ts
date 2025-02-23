@@ -16,24 +16,33 @@ interface Conversation {
   timestamp: number;
 }
 
-type TileItem = User | Booth | Table
 
-interface Booth {
-  companyName: string; // conversationId, since we're assuming 1-on-1 
-  userId: string; // recruiter - user?
-  socketId: string,
-}
 
-interface Table {
-  tableId : string;
+// interface Booth {
+//   companyName: string; // conversationId, since we're assuming 1-on-1 
+//   userId: string; // recruiter - user?
+//   socketId: string,
+// }
+
+// interface Table {
+//   tableId : string;
+// }
+
+interface TileItem {
+  type: "table" | "booth" | "chair" | "empty" | "user";
+  id: string;
+  // will be used as conversationId for booths/tables because users cannot move 
+  companyName?: string;
+  userId?: string;
+  socketId?: string;
 }
 
 export class ServerState {
   public connections: Record<Socket["id"], User> = {};
   public conversations: Record<ConversationId, Conversation> = {};
   public proximityMap: Record<Socket["id"], Socket["id"][]> = {};
-  public map: [Socket["id"], TileItem][][][] = [[[]]];
-  // 2d map where each tile has a list of [socketId, User] pairs
+  public map: [TileItem][][][] = [[[]]];
+  // 2d map where each tile has a list of [TileItem] 
 
   constructor() {
     this.connections = {};
