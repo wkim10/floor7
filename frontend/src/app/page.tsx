@@ -15,6 +15,8 @@ const SocketDemo = () => {
     setConnected,
     serverState,
     setServerState,
+    socketId,
+    setSocketId,
   } = useAppStore();
 
   const id = socket["id"];
@@ -24,6 +26,7 @@ const SocketDemo = () => {
   useEffect(() => {
     // Connection status
     socket.on("connect", () => {
+      setSocketId(socket.id ?? "");
       setConnected(true);
       console.log("Connected to server");
     });
@@ -35,7 +38,6 @@ const SocketDemo = () => {
 
     socket.on("serverStateUpdate", (newServerState: ServerState) => {
       console.log("serverState updated", newServerState);
-      // console.log("first tile", newServerState.map[0][0]);
       setServerState(newServerState);
     });
 
@@ -82,12 +84,15 @@ const SocketDemo = () => {
     <div className="h-full w-full p-4 flex flex-col bg-white text-black gap-y-8">
       <div className="mb-4">
         <div className="text-lg font-bold">
-          Status:{" "}
-          {connected ? (
-            <span className="text-green-600">Connected</span>
-          ) : (
-            <span className="text-red-600">Disconnected</span>
-          )}
+          <span>
+            Status:{" "}
+            {connected ? (
+              <span className="text-green-600">Connected</span>
+            ) : (
+              <span className="text-red-600">Disconnected</span>
+            )}
+          </span>
+          <span>Socket id: {socketId}</span>
         </div>
       </div>
 
@@ -173,7 +178,31 @@ const SocketDemo = () => {
                       borderRadius: "4px",
                     }}
                   >
-                    {users.map((user) => user.username).join(", ")}
+                    {users.map((user) => {
+                      return (
+                        <div
+                          key={user[0]}
+                          className="flex flex-col space-y-2 w-full text-[6px]"
+                        >
+                          <div
+                            key={user[1].username}
+                            className="flex w-full justify-center"
+                          >
+                            {user[1].username}
+                          </div>
+                          {(serverState.proximityMap[user[0]] || []).map(
+                            (otherSocketId) => (
+                              <div key={otherSocketId} className="text-center">
+                                {otherSocketId}
+                              </div>
+                            )
+                          )}
+                        </div>
+                      );
+                    })}
+                    {/* {users.map((user) => {
+                      <div>Hi</div>;
+                    })} */}
                   </div>
                 )}
               </div>
