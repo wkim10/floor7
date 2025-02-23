@@ -1,5 +1,5 @@
 "use client";
-import { socket } from "@/app/page";
+import { socket } from "@/app/intro/page";
 import { ServerState, User } from "@/app/types";
 import useAppStore from "@/store";
 import { useEffect } from "react";
