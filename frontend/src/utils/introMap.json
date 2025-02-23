@@ -1,0 +1,1845 @@
+[
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "hole2",
+      "id": ""
+    },
+    {
+      "type": "hole2",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "booth",
+      "id": "booth1",
+      "companyName": "spotify"
+    },
+    {
+      "type": "booth",
+      "id": "booth1",
+      "companyName": "spotify"
+    },
+    {
+      "type": "booth",
+      "id": "booth1",
+      "companyName": "spotify"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "booth",
+      "id": "booth2",
+      "companyName": "mathworks"
+    },
+    {
+      "type": "booth",
+      "id": "booth2",
+      "companyName": "mathworks"
+    },
+    {
+      "type": "booth",
+      "id": "booth2",
+      "companyName": "mathworks"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "hole2",
+      "id": ""
+    },
+    {
+      "type": "hole",
+      "id": "booth3",
+      "companyName": "apple"
+    },
+    {
+      "type": "hole",
+      "id": "booth3",
+      "companyName": "apple"
+    },
+    {
+      "type": "hole2",
+      "id": "booth3",
+      "companyName": "apple"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "booth",
+      "id": "booth1",
+      "companyName": "spotify"
+    },
+    {
+      "type": "booth",
+      "id": "booth1",
+      "companyName": "spotify"
+    },
+    {
+      "type": "booth",
+      "id": "booth1",
+      "companyName": "spotify"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "booth",
+      "id": "booth2",
+      "companyName": "mathworks"
+    },
+    {
+      "type": "booth",
+      "id": "booth2",
+      "companyName": "mathworks"
+    },
+    {
+      "type": "booth",
+      "id": "booth2",
+      "companyName": "mathworks"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "hole2",
+      "id": ""
+    },
+    {
+      "type": "hole",
+      "id": ""
+    },
+    {
+      "type": "hole1",
+      "id": "booth3",
+      "companyName": "apple"
+    },
+    {
+      "type": "hole1",
+      "id": "booth3",
+      "companyName": "apple"
+    },
+    {
+      "type": "hole",
+      "id": "booth3",
+      "companyName": "apple"
+    },
+    {
+      "type": "hole2",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "hole2",
+      "id": ""
+    },
+    {
+      "type": "hole",
+      "id": ""
+    },
+    {
+      "type": "hole1",
+      "id": ""
+    },
+    {
+      "type": "hole1",
+      "id": ""
+    },
+    {
+      "type": "hole",
+      "id": ""
+    },
+    {
+      "type": "hole2",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "hole2",
+      "id": ""
+    },
+    {
+      "type": "hole",
+      "id": ""
+    },
+    {
+      "type": "hole",
+      "id": ""
+    },
+    {
+      "type": "hole2",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "booth",
+      "id": "booth4",
+      "companyName": "meta"
+    },
+    {
+      "type": "booth",
+      "id": "booth4",
+      "companyName": "meta"
+    },
+    {
+      "type": "booth",
+      "id": "booth4",
+      "companyName": "meta"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "booth",
+      "id": "booth5",
+      "companyName": "nvidia"
+    },
+    {
+      "type": "booth",
+      "id": "booth5",
+      "companyName": "nvidia"
+    },
+    {
+      "type": "booth",
+      "id": "booth5",
+      "companyName": "nvidia"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "hole2",
+      "id": "booth6",
+      "companyName": "epic"
+    },
+    {
+      "type": "hole2",
+      "id": "booth6",
+      "companyName": "epic",
+      "showName": true
+    },
+    {
+      "type": "booth",
+      "id": "booth6",
+      "companyName": "epic"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "booth",
+      "id": "booth4",
+      "companyName": "meta"
+    },
+    {
+      "type": "booth",
+      "id": "booth4",
+      "companyName": "meta"
+    },
+    {
+      "type": "booth",
+      "id": "booth4",
+      "companyName": "meta"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "booth",
+      "id": "booth5",
+      "companyName": "nvidia"
+    },
+    {
+      "type": "booth",
+      "id": "booth5",
+      "companyName": "nvidia"
+    },
+    {
+      "type": "booth",
+      "id": "booth5",
+      "companyName": "nvidia"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "booth",
+      "id": "booth6",
+      "companyName": "epic"
+    },
+    {
+      "type": "booth",
+      "id": "booth6",
+      "companyName": "epic"
+    },
+    {
+      "type": "booth",
+      "id": "booth6",
+      "companyName": "epic"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "chair",
+      "id": "chair1"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "chair",
+      "id": "chair2"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "chair",
+      "id": "chair3"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "chair",
+      "id": "chair4"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "chair",
+      "id": "chair5"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "table",
+      "id": "table1"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "table",
+      "id": "table2"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "table",
+      "id": "table3"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "table",
+      "id": "table4"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "table",
+      "id": "table5"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "chair",
+      "id": "chair1"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "chair",
+      "id": "chair2"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "chair",
+      "id": "chair3"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "chair",
+      "id": "chair4"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "chair",
+      "id": "chair5"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "chair",
+      "id": "chair6"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "chair",
+      "id": "chair7"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "chair",
+      "id": "chair8"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "chair",
+      "id": "chair9"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "chair",
+      "id": "chair10"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "table",
+      "id": "table6"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "table",
+      "id": "table7"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "table",
+      "id": "table8"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "table",
+      "id": "table9"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "table",
+      "id": "table10"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "chair",
+      "id": "chair6"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "chair",
+      "id": "chair7"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "chair",
+      "id": "chair8"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "chair",
+      "id": "chair9"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "chair",
+      "id": "chair10"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ]
+]

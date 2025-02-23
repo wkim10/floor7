@@ -3,7 +3,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { socket } from "@/app/page";
+import { socket } from "@/app/intro/page";
 
 type ProfileData = {
   name: string;
@@ -292,7 +292,7 @@ export default function Profile({
         </div>
         <div
           onClick={handleClick}
-          className={`shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] p-3 rounded-xl justify-self-center col-start-2 
+          className={`shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] p-3 rounded-xl justify-self-center col-start-2
           transition-all duration-300 ${
             isSaved
               ? "bg-green-500 scale-[0.98] cursor-default"
