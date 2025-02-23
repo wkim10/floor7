@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import http from "http";
 import socket from "socket.io";
-import { ServerState, User } from "../types/index"
+import { ServerState, User } from "../types/index";
 
 const PORT = process.env.PORT || 8000;
 
@@ -19,48 +19,50 @@ app.use(cors());
 // TODO: Add states
 
 // All the connected users to the socket server
-const connectedClients = new Set();
+// const connectedClients = new Set();
 
 const serverState = new ServerState();
 
-io.on("connection", (socket) => {
+io.on("connection", (socket: socket.Socket) => {
   console.log("A client connected:", socket.id);
-  connectedClients.add(socket.id);
+
+  socket.emit("serverStateUpdate", serverState);
 
   // Handle incoming messages
-  socket.on("sendMessage", (message) => {
+  socket.on("sendMessage", (message: string) => {
     console.log("Message received:", message);
-    // Broadcast the message to all connected clients
-
-    io.emit("messageReceived", { id: socket.id, message });
+    io.emit("serverStateUpdate", serverState);
   });
 
-  socket.on("createUser", (username) => {
-    console.log("Creating user for current socket");
+  // Create user from frontend
+  socket.on("createUser", (username: string) => {
+    console.log("Creating user for current socket: ", socket.id);
 
-    // Initialize user
-    const user: User = {
-      coordinate: [0, 0],
-      username: username,
-      avatar: "lol"
-    }
-
-    serverState.
-
-    io.emit("createdUser", user);
+    serverState.addUser(username, socket);
+    io.emit("serverStateUpdate", serverState);
   });
 
-  socket.on("moveUser", (username,  ) => {
-    console.log("Moving user", username);
-  })
-
-  // Handle client disconnect
+  // Handle client disconnect e.g. log out
   socket.on("disconnect", () => {
     console.log("Client disconnected:", socket.id);
-    connectedClients.delete(socket.id);
 
-    io.emit("clientCount", connectedClients.size);
+    serverState.removeUser(socket);
+    io.emit("serverStateUpdate", serverState);
   });
+
+  // Handle movement
+  socket.on(
+    "moveUser",
+    (socket: socket.Socket, coordinates: [number, number]) => {
+      const user = serverState.connections[socket.id];
+      // TODO: If user not found?
+
+      console.log("User has moved: ", user);
+      serverState.moveUser(socket.id, coordinates[0], coordinates[1]);
+
+      io.emit("serverStateUpdate", serverState);
+    }
+  );
 });
 
 server.listen(PORT, () => {

@@ -4,6 +4,7 @@
     "install": "concurrently \"cd frontend && npm install\" \"cd backend && npm install\""
   },
   "dependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "socket.io-client": "^4.8.1"
   }
 }

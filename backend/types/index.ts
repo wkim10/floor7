@@ -12,10 +12,10 @@ export interface User {
   // todo: Proximity ID
 }
 
-interface Connection {
-  socket: socket.Socket;
-  user?: User;
-}
+// interface Connection {
+//   socket: socket.Socket;
+//   user?: User;
+// }
 
 interface Conversation {
   user1: UserId;
@@ -24,28 +24,41 @@ interface Conversation {
 }
 
 export class ServerState {
-  public connections: Record<Socket["id"], UserId> = {};
+  public connections: Record<Socket["id"], User> = {};
   public conversations: Record<ConversationId, Conversation> = {};
-  private users: Record<Socket["id"], User> = {}; // TODO: Check for race conditions
+  // private users: Record<Socket["id"], User> = {}; // TODO: Check for race conditions
 
   constructor() {
     this.connections = {};
     this.conversations = {};
-    this.users = {};
+    // this.users = {};
   }
 
-  // Code to move player
-  public addPlayer(user: User) {
-    this.removePlayer(ui)  }
-  
-  public removePlayer(user: User) {
-    this.users.
-  }
-  
-  public movePlayer(uid: string, x: number, y: number) {
-    this.users[uid].coordinate[0] = x;
-    this.users[uid].coordinate[1] = y;
+  // Code to add user
+  public addUser(username: string, socket: Socket) {
+    // Assume they start at 50, 50
+    const spawnX = 50;
+    const spawnY = 50;
 
-    return this.users;
+    const user: User = {
+      coordinate: [spawnX, spawnY],
+      avatar: "avatar", // TODO: Get avatar
+      username: username,
+    };
+
+    this.connections[socket.id] = user;
+  }
+
+  // e.g. For when they log out
+  public removeUser(socket: Socket) {
+    if (!this.connections[socket.id]) return;
+
+    delete this.connections[socket.id];
+  }
+
+  // Code to move user
+  public moveUser(socketId: Socket["id"], x: number, y: number) {
+    this.connections[socketId].coordinate[0] = x;
+    this.connections[socketId].coordinate[1] = y;
   }
 }
