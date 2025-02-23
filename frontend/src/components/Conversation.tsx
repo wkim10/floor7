@@ -28,7 +28,7 @@ export default function Conversation({ other, company, setShowModal }: props) {
       <div className={`flex flex-col items-center relative max-h-screen`}>
         {company ? (
           <div className="mb-[30px] rounded-xl p-3 bg-white bg-opacity-90 text-[32px] font-bold shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
-            {company.toUpperCase()}
+            {company.charAt(0).toUpperCase() + company.slice(1).toLowerCase()}
           </div>
         ) : null}
         <div
@@ -40,7 +40,7 @@ export default function Conversation({ other, company, setShowModal }: props) {
           onClick={() => setShowModal(false)}
           className="bg-black cursor-pointer rounded-xl p-3 text-white bg-opacity-60 mt-4"
         >
-          Back to booths
+          Leave Conversation
         </div>
       </div>
     </div>

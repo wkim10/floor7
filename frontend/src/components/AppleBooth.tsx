@@ -4,9 +4,10 @@ import Booth from "@/components/Booth";
 
 interface props {
   setShowModal: (showModal: boolean) => void;
+  setConversationModal: (conversationModal: boolean) => void;
 }
 
-export default function Apple({ setShowModal }: props) {
+export default function Apple({ setShowModal, setConversationModal }: props) {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div className="fixed inset-0 bg-[#101828] opacity-40" />
@@ -26,9 +27,15 @@ export default function Apple({ setShowModal }: props) {
             onClick={() => setShowModal(false)}
             className="bg-black cursor-pointer rounded-xl p-3 text-white bg-opacity-60"
           >
-            Back to booths
+            Back
           </div>
-          <div className="bg-[#273CB2] cursor-pointer rounded-xl p-3 text-white">
+          <div
+            onClick={() => {
+              setShowModal(false);
+              setConversationModal(true);
+            }}
+            className="bg-[#273CB2] cursor-pointer rounded-xl p-3 text-white"
+          >
             Chat 1:1 with Gina
           </div>
         </div>

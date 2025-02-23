@@ -77,7 +77,17 @@ io.on("connection", (socket: socket.Socket) => {
     ) {
       io.emit("showOccupiedModal", socket.id);
     }
-
+    if (tile.type === "booth") {
+      io.emit("showBoothModal", {
+        socketId: socket.id,
+        companyName: tile.companyName,
+      });
+    }
+    if (tile.type === "empty") {
+      io.emit("hideBoothModal", {
+        socketId: socket.id,
+      });
+    }
     io.emit("serverStateUpdate", serverState);
   });
 
