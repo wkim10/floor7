@@ -1,5 +1,10 @@
 "use client";
 
+import React, { useEffect } from "react";
+import { io } from "socket.io-client";
+import { ServerState, User } from "./types/index";
+import useAppStore from "@/store";
+import Video from "@/components/video";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -32,6 +37,7 @@ export default function Home() {
           Continue to Career Fair
         </div>
       </div>
+      <Video />
     </div>
   );
 };
