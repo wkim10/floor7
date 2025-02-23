@@ -15,6 +15,13 @@ import Meta from "./MetaBooth";
 import Spotify from "./SpotifyBooth";
 import Conversation from "./Conversation";
 
+interface ChatMessage {
+  message: string;
+  username: string; // Change from userId to username
+  timestamp: number;
+  isVisible: boolean;
+}
+
 export const RoomMap = () => {
   const {
     username,
@@ -39,6 +46,129 @@ export const RoomMap = () => {
   const [showNvidiaModal, setShowNvidiaModal] = React.useState(false);
 
   const [showConversation, setShowConversation] = React.useState(true);
+  const [isChatVisible, setIsChatVisible] = useState(false);
+  const [chatMessage, setChatMessage] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const MESSAGE_DURATION = 5000; // 5 seconds
+
+  useEffect(() => {
+    socket.on("receiveMessage", ({ message, username, timestamp }) => {
+      setMessages((prev) => [
+        ...prev,
+        { message, username, timestamp, isVisible: true },
+      ]);
+
+      // Set up timeout to fade out message
+      setTimeout(() => {
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.timestamp === timestamp ? { ...msg, isVisible: false } : msg
+          )
+        );
+
+        // Remove message from state after fade animation
+        setTimeout(() => {
+          setMessages((prev) =>
+            prev.filter((msg) => msg.timestamp !== timestamp)
+          );
+        }, 1000);
+      }, MESSAGE_DURATION);
+    });
+
+    return () => {
+      socket.off("receiveMessage");
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (isTyping) return; // Block movement while typing
+
+      if (event.key === "/") {
+        setIsChatVisible(true);
+        setIsTyping(true); // Disable movement
+      }
+    };
+
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (!isChatVisible) return;
+
+      if (event.key === "Enter" && chatMessage.trim()) {
+        socket.emit("sendMessage", {
+          message: chatMessage,
+          socketId: socket.id,
+        });
+        setChatMessage("");
+        setIsChatVisible(false);
+        setIsTyping(false); // Re-enable movement
+      }
+
+      if (event.key === "Escape") {
+        setChatMessage("");
+        setIsChatVisible(false);
+        setIsTyping(false); // Re-enable movement
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keyup", handleKeyUp);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keyup", handleKeyUp);
+    };
+  }, [isChatVisible, chatMessage, isTyping]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChatMessage(e.target.value);
+  };
+
+  const renderUserWithMessage = (mappedUser: any) => (
+    <div key={mappedUser.username} className="absolute z-10 top-0 left-0">
+      <Image
+        alt={`${mappedUser.username}-avatar`}
+        src={`/images/avatar${parseInt(mappedUser.avatar)}.png`}
+        width={32}
+        height={32}
+        className="rounded-full"
+      />
+      <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 whitespace-nowrap text-xs bg-white/80 px-2 py-1 rounded">
+        {mappedUser.username}
+      </div>
+
+      {/* Chat messages - update filter to use username */}
+      {messages
+        .filter((msg) => msg.username === mappedUser.username && msg.isVisible)
+        .map((msg) => (
+          <div
+            key={msg.timestamp}
+            className="absolute -top-14 left-1/2 transform -translate-x-1/2 
+                     whitespace-nowrap text-sm bg-black/75 text-white px-3 py-1 
+                     rounded-full transition-opacity duration-1000"
+            style={{
+              opacity: msg.isVisible ? 1 : 0,
+            }}
+          >
+            {msg.message}
+          </div>
+        ))}
+
+      {/* Chat input */}
+      {isChatVisible && user.username === mappedUser.username && (
+        <input
+          type="text"
+          value={chatMessage}
+          onChange={handleChange}
+          autoFocus
+          className="absolute -top-14 left-1/2 transform -translate-x-1/2 
+                   border rounded px-2 py-1 text-sm"
+          placeholder="Type a message..."
+        />
+      )}
+    </div>
+  );
 
   useEffect(() => {
     // Connection status
@@ -96,6 +226,7 @@ export const RoomMap = () => {
       socket.off("connect");
       socket.off("disconnect");
       socket.off("serverStateUpdate");
+      socket.off("receiveMessage");
     };
   }, [serverState, setServerState, setConnected]);
 
@@ -103,7 +234,7 @@ export const RoomMap = () => {
     // Move user around
     const moveUser = (event: KeyboardEvent) => {
       const movementDeltas = { x: 0, y: 0 };
-
+      if (isTyping || isChatVisible) return;
       if (event.key === "w") {
         movementDeltas.y -= 1;
       } else if (event.key === "s") {
@@ -118,7 +249,7 @@ export const RoomMap = () => {
     };
     document.addEventListener("keydown", moveUser);
     return () => document.removeEventListener("keydown", moveUser);
-  }, []);
+  }, [isTyping, isChatVisible]);
 
   const user = serverState.connections[socket.id ?? ""];
   if (!user) {
@@ -203,25 +334,7 @@ export const RoomMap = () => {
                       mappedUser.coordinate[0] === rowIndex &&
                       mappedUser.coordinate[1] === colIndex
                     ) {
-                      return (
-                        <div
-                          key={mappedUser.username}
-                          className="absolute z-10 top-0 left-0"
-                        >
-                          <Image
-                            alt={`${tileKey}-${mappedUser.username}`}
-                            src={`/images/avatar${parseInt(
-                              mappedUser.avatar
-                            )}.png`}
-                            width={32}
-                            height={32}
-                            className="rounded-full"
-                          />
-                          <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 whitespace-nowrap text-xs bg-white/80 px-2 py-1 rounded">
-                            {mappedUser.username}
-                          </div>
-                        </div>
-                      );
+                      return renderUserWithMessage(mappedUser);
                     }
                     return null;
                   })}

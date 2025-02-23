@@ -105,6 +105,15 @@ io.on("connection", (socket: socket.Socket) => {
       }
     }
   });
+  socket.on("sendMessage", (data: { message: string; userId: string }) => {
+    // Broadcast the message to all clients including sender
+    const user = serverState.connections[socket["id"]];
+    io.emit("receiveMessage", {
+      message: data.message,
+      username: user.username,
+      timestamp: Date.now(),
+    });
+  });
 });
 
 server.listen(PORT, () => {
