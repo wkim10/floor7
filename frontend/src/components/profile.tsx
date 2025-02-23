@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 type ProfileData = {
   name: string;
@@ -18,6 +19,8 @@ interface ProfileProps {
 }
 
 export default function Profile({ edit, initialData }: ProfileProps) {
+  const router = useRouter();
+
   const [name, setName] = React.useState(initialData?.name || "");
   const [email, setEmail] = React.useState(initialData?.email || "");
   const [headline, setHeadline] = React.useState(initialData?.headline || "");
@@ -51,17 +54,27 @@ export default function Profile({ edit, initialData }: ProfileProps) {
     setCurrentAvatar((prev) => (prev === 1 ? 6 : prev - 1));
   };
 
-  const handleSave = () => {
+  const handleClick = () => {
     if (edit && !isSaved) {
       setIsSaved(true);
       setTimeout(() => setIsSaved(false), 2000);
+    } else {
+      router.push("/career-fair");
     }
   };
 
   return (
     <div className="flex flex-col gap-6 mt-[45px] items-center">
+      {edit ? (
+        <div
+          onClick={() => router.push("/career-fair")}
+          className="absolute left-[3%] top-[5%] p-3 cursor-pointer text-white bg-black bg-opacity-60 rounded-xl"
+        >
+          Back
+        </div>
+      ) : null}
       <div className="font-bold text-3xl shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] rounded-xl bg-white bg-opacity-90 p-3">
-        {edit ? "Edit" : "Create"} Profile
+        {edit ? "Edit Profile" : "Register"}
       </div>
 
       <div className="flex select-none items-center gap-6">
@@ -234,55 +247,16 @@ export default function Profile({ edit, initialData }: ProfileProps) {
           />
         </div>
       </div>
-      <div className="grid grid-cols-3 w-[90%] items-center">
-        <div className="flex shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] cursor-pointer items-center gap-[10px] bg-white p-3 rounded-xl justify-self-start">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="22"
-            height="19"
-            viewBox="0 0 22 19"
-            fill="none"
-          >
-            <path
-              d="M19 14L21 16L19 18"
-              stroke="black"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M19 1L21 3L19 5"
-              stroke="black"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M21 3H17.5C13.9102 3 11 5.91015 11 9.5C11 13.0898 13.9102 16 17.5 16H21"
-              stroke="black"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-            <path
-              d="M1 16H4.5C8.08985 16 11 13.0898 11 9.5C11 5.91015 8.08985 3 4.5 3H1"
-              stroke="black"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-          </svg>
-          <div>Shuffle background</div>
-        </div>
-        <div
-          onClick={handleSave}
-          className={`shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] p-3 rounded-xl justify-self-center col-start-2 
+      <div
+        onClick={handleClick}
+        className={`shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] p-3 rounded-xl justify-self-center col-start-2 
           transition-all duration-300 ${
             isSaved
               ? "bg-green-500 scale-[0.98] cursor-default"
               : "bg-[#273CB2] cursor-pointer"
           } text-white`}
-        >
-          {edit ? (isSaved ? "Saved ✓" : "Save Changes") : "Enter career fair"}
-        </div>
+      >
+        {edit ? (isSaved ? "Saved ✓" : "Save Changes") : "Enter career fair"}
       </div>
     </div>
   );
