@@ -16,12 +16,16 @@ interface Conversation {
   timestamp: number;
 }
 
-type TileItem = User | Booth
+type TileItem = User | Booth | Table
 
 interface Booth {
   companyName: string; // conversationId, since we're assuming 1-on-1 
   userId: string; // recruiter - user?
   socketId: string,
+}
+
+interface Table {
+  tableId : string;
 }
 
 export class ServerState {
@@ -35,15 +39,15 @@ export class ServerState {
     this.connections = {};
     this.conversations = {};
     // Create empty arrays for each position in the map
-    this.map = Array.from({ length: 20 }, () =>
-      Array.from({ length: 20 }, () => [])
+    this.map = Array.from({ length: 21 }, () =>
+      Array.from({ length: 21 }, () => [])
     );
     this.proximityMap = {};
   }
 
   public addUser(username: string, avatar: string, socket: Socket) {
-    const spawnX = 0;
-    const spawnY = 0;
+    const spawnX = 14;
+    const spawnY = 10;
     const user: User = {
       coordinate: [spawnX, spawnY],
       avatar,

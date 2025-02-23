@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Profile from "@/components/Profile";
+import Profile from "@/components/profile";
 import CareerFair from "../career-fair/page";
 
 export default function CreateProfile() {

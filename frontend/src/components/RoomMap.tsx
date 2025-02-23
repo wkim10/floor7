@@ -82,7 +82,7 @@ export const RoomMap = () => {
           block.map((users, colIndex) => {
             const tileKey = `${rowIndex}-${colIndex}`;
             return (
-              <div key={tileKey + colIndex} className="relative border border-black w-full h-full">
+              <div key={tileKey + colIndex} className="relative border border-black/5 w-full h-full">
                 {/* Find all users at this coordinate */}
                 {Object.values(serverState.connections).map((mappedUser) => {
                   if (
