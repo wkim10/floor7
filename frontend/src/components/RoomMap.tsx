@@ -81,14 +81,58 @@ export const RoomMap = () => {
     //   }
     // });
 
+    //   socket.on("startConvo", ({ newServerState, convoId, conversation }) => {
+    //     console.log(newServerState, convoId, conversation);
+    //     if (socket.id != undefined) {
+    //       const username = newServerState.connections[socket.id].username;
+    //       if (
+    //         username === conversation.user1 ||
+    //         username === conversation.user2
+    //       ) {
+    //         const otherUsername =
+    //           username === conversation.user1
+    //             ? conversation.user2
+    //             : conversation.user1;
+    //         var otherSocketId = "";
+    //         for (let key of Object.keys(newServerState.connections)) {
+    //           if (newServerState.connections[key].username === otherUsername) {
+    //             otherSocketId = key;
+    //           }
+    //         }
+    //         if (username === conversation.user1) {
+    //           setOther(otherSocketId);
+    //         }
+
+    //         setShowConversation(true);
+    //       }
+    //     } else {
+    //       console.log("socketid not found in startConvo");
+    //     }
+    //   });
+
+    //   socket.on("moveToTile", (x: number, y: number) => {});
+
+    //   return () => {
+    //     socket.off("connect");
+    //     socket.off("disconnect");
+    //     socket.off("serverStateUpdate");
+    //   };
+    // }, [serverState, setServerState, setConnected]);
+
     socket.on("startConvo", ({ newServerState, convoId, conversation }) => {
       console.log(newServerState, convoId, conversation);
       if (socket.id != undefined) {
+        console.log(
+          "socketid found but connections",
+          newServerState.connections
+        );
         const username = newServerState.connections[socket.id].username;
         if (
           username === conversation.user1 ||
           username === conversation.user2
         ) {
+          console.log("Start convo", convoId, conversation);
+          setShowWebRTCModal(true);
           const otherUsername =
             username === conversation.user1
               ? conversation.user2
@@ -106,7 +150,20 @@ export const RoomMap = () => {
           setShowConversation(true);
         }
       } else {
-        console.log("socketid not found in startConvo");
+        console.log("socketid not foun in startConvo");
+      }
+    });
+
+    // Replace the existing showBoothModal handler with:
+    socket.on("showBoothModal", ({ socketId, companyName }) => {
+      if (socket.id && socketId === socket.id) {
+        setViewBooth(companyName);
+      }
+    });
+
+    socket.on("hideBoothModal", ({ socketId }) => {
+      if (socket.id && socketId === socket.id) {
+        setViewBooth("");
       }
     });
 
@@ -118,48 +175,6 @@ export const RoomMap = () => {
       socket.off("serverStateUpdate");
     };
   }, [serverState, setServerState, setConnected]);
-
-  //   socket.on("startConvo", ({ newServerState, convoId, conversation }) => {
-  //     console.log(newServerState, convoId, conversation);
-  //     if (socket.id != undefined) {
-  //       console.log(
-  //         "socketid found but connections",
-  //         newServerState.connections
-  //       );
-  //       const username = newServerState.connections[socket.id].username;
-  //       if (
-  //         username === conversation.user1 ||
-  //         username === conversation.user2
-  //       ) {
-  //         console.log("Start convo", convoId, conversation);
-  //         setShowWebRTCModal(true);
-  //       }
-  //     } else {
-  //       console.log("socketid not foun in startConvo");
-  //     }
-  //   });
-
-  //   // Replace the existing showBoothModal handler with:
-  //   socket.on("showBoothModal", ({ socketId, companyName }) => {
-  //     if (socket.id && socketId === socket.id) {
-  //       setViewBooth(companyName);
-  //     }
-  //   });
-
-  //   socket.on("hideBoothModal", ({ socketId }) => {
-  //     if (socket.id && socketId === socket.id) {
-  //       setViewBooth("");
-  //     }
-  //   });
-
-  //   socket.on("moveToTile", (x: number, y: number) => {});
-
-  //   return () => {
-  //     socket.off("connect");
-  //     socket.off("disconnect");
-  //     socket.off("serverStateUpdate");
-  //   };
-  // }, [serverState, setServerState, setConnected]);
 
   useEffect(() => {
     // Move user around
@@ -309,7 +324,10 @@ export const RoomMap = () => {
                   />
                   {showName ? (
                     <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 whitespace-nowrap text-xs bg-white/80 px-2 py-1 rounded">
-                      {tileCompany}
+                      {tileCompany
+                        ? tileCompany.charAt(0).toUpperCase() +
+                          tileCompany.slice(1).toLowerCase()
+                        : ""}
                     </div>
                   ) : null}
 
@@ -363,7 +381,7 @@ export const RoomMap = () => {
                                     break;
                                 }
                               }}
-                              className="absolute whitespace-nowrap cursor-pointer p-3 text-[12px] rounded-xl bg-opacity-60 bg-black inline-block text-white"
+                              className="absolute whitespace-nowrap -translate-x-[33.25px] cursor-pointer p-3 text-[12px] rounded-xl bg-opacity-60 bg-black inline-block text-white"
                             >
                               View booth
                             </div>
