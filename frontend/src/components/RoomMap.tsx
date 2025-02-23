@@ -1,24 +1,17 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { ServerState, User } from "@/app/types";
+import { ServerState } from "@/app/types";
 import useAppStore from "@/store";
 import Video from "@/components/video";
 import { socket } from "@/app/page";
 import Image from "next/image";
-import { randomUUID } from "crypto";
 
 export const RoomMap = () => {
-  const {
-    username,
-    setUsername,
-    connected,
-    setConnected,
-    serverState,
-    setServerState,
-  } = useAppStore();
+  const { username, setUsername, connected, setConnected, serverState, setServerState } =
+    useAppStore();
 
-  const tileSizeInPixels: number = 40;
+  // const tileSizeInPixels: number = 24;
 
   useEffect(() => {
     // Connection status
@@ -68,34 +61,28 @@ export const RoomMap = () => {
     return () => document.removeEventListener("keydown", moveUser);
   }, []);
 
-  // Creates user
-  const createUser = (e: any) => {
-    e.preventDefault();
-    if (username.trim()) {
-      socket.emit("createUser", username);
-      setUsername("");
-    }
-  };
   const user = serverState.connections[socket.id ?? ""];
   if (!user) {
     return;
   }
 
   return (
-    <div className="h-full w-full p-4 flex flex-col bg-white text-black gap-y-8">
+    <div className="h-full w-full p-4 flex flex-col bg-white text-black gap-y-8 mt-24">
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: `repeat(${serverState.map.length}, ${40}px)`,
-          gridTemplateRows: `repeat(${serverState.map[0].length}, ${40}px)`,
+          gridTemplateColumns: `repeat(${serverState.map.length}, ${32}px)`,
+          gridTemplateRows: `repeat(${serverState.map[0].length}, ${32}px)`,
           gap: "0px",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         {serverState.map.map((block, rowIndex) =>
           block.map((users, colIndex) => {
             const tileKey = `${rowIndex}-${colIndex}`;
             return (
-              <div key={tileKey + colIndex} className="relative">
+              <div key={tileKey + colIndex} className="relative border border-black w-full h-full">
                 {/* Find all users at this coordinate */}
                 {Object.values(serverState.connections).map((mappedUser) => {
                   if (
@@ -103,12 +90,9 @@ export const RoomMap = () => {
                     mappedUser.coordinate[1] === colIndex
                   ) {
                     return (
-                      <div
-                        key={mappedUser.username}
-                        className="absolute top-0 left-0"
-                      >
+                      <div key={mappedUser.username} className="absolute top-0 left-0">
                         <Image
-                          alt={`Avatar for ${mappedUser.username}`}
+                          alt={`${tileKey}-${mappedUser.username}`}
                           src={`/images/avatar${parseInt(mappedUser.avatar)}.png`}
                           width={32}
                           height={32}

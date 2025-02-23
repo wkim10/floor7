@@ -42,4 +42,4 @@ export default function Home() {
       <Video />
     </div>
   );
-};
+}

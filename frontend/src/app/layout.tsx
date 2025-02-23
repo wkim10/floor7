@@ -5,6 +5,7 @@ import "./globals.css";
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains-mono",
+  display: "swap", // Add this for better font loading
 });
 
 export const metadata: Metadata = {
@@ -18,11 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${jetbrainsMono.variable} font-mono antialiased bg-white`}>
-        {children}
-      </body>
+    <html lang="en" className={jetbrainsMono.variable}>
+      <body className={`font-mono antialiased bg-white vsc-initialized`}>{children}</body>
     </html>
   );
 }
