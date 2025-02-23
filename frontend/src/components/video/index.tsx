@@ -35,8 +35,9 @@ const Video = () => {
             id="me"
             autoPlay
             playsInline
-            className="w-full bg-gray-500"
+            className="w-full bg-gray-500 transform scaleX(-1)"
             ref={meVideoRef}
+            style={{ transform: "scaleX(-1)" }}
           />
         </div>
         <div className="flex flex-col col-span-6 gap-4">
@@ -46,6 +47,7 @@ const Video = () => {
             playsInline
             className="w-full bg-gray-500"
             ref={otherVideoRef}
+            style={{ transform: "scaleX(-1)" }}
           />
         </div>
       </div>
