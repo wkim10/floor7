@@ -6,6 +6,7 @@ import useAppStore from "@/store";
 import Video from "@/components/video";
 import { socket } from "@/app/page";
 import Image from "next/image";
+import defaultMap from "@/utils/defaultMap.json";
 
 export const RoomMap = () => {
   const { username, setUsername, connected, setConnected, serverState, setServerState } =
@@ -71,8 +72,10 @@ export const RoomMap = () => {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: `repeat(${serverState.map.length}, ${32}px)`,
-          gridTemplateRows: `repeat(${serverState.map[0].length}, ${32}px)`,
+          // gridTemplateColumns: `repeat(${serverState.map.length}, ${32}px)`,
+          // gridTemplateRows: `repeat(${serverState.map[0].length}, ${32}px)`,
+          gridTemplateColumns: `repeat(${defaultMap.length}, ${32}px)`,
+          gridTemplateRows: `repeat(${defaultMap[0].length}, ${32}px)`,
           gap: "0px",
           alignItems: "center",
           justifyContent: "center",
@@ -82,7 +85,10 @@ export const RoomMap = () => {
           block.map((users, colIndex) => {
             const tileKey = `${rowIndex}-${colIndex}`;
             return (
-              <div key={tileKey + colIndex} className="relative border border-black/5 w-full h-full">
+              <div
+                key={tileKey + colIndex}
+                className="relative border border-black/5 w-full h-full"
+              >
                 {/* Find all users at this coordinate */}
                 {Object.values(serverState.connections).map((mappedUser) => {
                   if (
@@ -101,6 +107,27 @@ export const RoomMap = () => {
                           {mappedUser.username}
                         </div>
                       </div>
+                    );
+                  } else if (defaultMap[rowIndex][colIndex].type === "booth") {
+                    return (
+                      <div
+                        key={mappedUser.username}
+                        className="absolute top-0 left-0 h-full w-full bg-red-400"
+                      />
+                    );
+                  } else if (defaultMap[rowIndex][colIndex].type === "chair") {
+                    return (
+                      <div
+                        key={mappedUser.username}
+                        className="absolute top-0 left-0 h-full w-full rounded-[9999px] bg-slate-400"
+                      />
+                    );
+                  } else if (defaultMap[rowIndex][colIndex].type === "table") {
+                    return (
+                      <div
+                        key={mappedUser.username}
+                        className="absolute top-0 left-0 h-full w-full bg-blue-400"
+                      />
                     );
                   }
                   return null;
