@@ -1,101 +1,217 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import React, { useEffect } from "react";
+import { io } from "socket.io-client";
+import { ServerState, User } from "./types/index";
+import useAppStore from "@/store";
+
+export const socket = io("http://localhost:8000");
+
+const SocketDemo = () => {
+  const {
+    username,
+    setUsername,
+    connected,
+    setConnected,
+    serverState,
+    setServerState,
+    socketId,
+    setSocketId,
+  } = useAppStore();
+
+  const id = socket["id"];
+  console.log(id);
+  const tileSizeInPixels: number = 40;
+
+  useEffect(() => {
+    // Connection status
+    socket.on("connect", () => {
+      setSocketId(socket.id ?? "");
+      setConnected(true);
+      console.log("Connected to server");
+    });
+
+    socket.on("disconnect", () => {
+      setConnected(false);
+      console.log("Disconnected from server");
+    });
+
+    socket.on("serverStateUpdate", (newServerState: ServerState) => {
+      console.log("serverState updated", newServerState);
+      setServerState(newServerState);
+    });
+
+    socket.on("moveToTile", (x: number, y: number) => {});
+
+    return () => {
+      socket.off("connect");
+      socket.off("disconnect");
+      socket.off("serverStateUpdate");
+    };
+  }, [serverState, setServerState, setConnected]);
+
+  useEffect(() => {
+    // Move user around
+    const moveUser = (event: KeyboardEvent) => {
+      const movementDeltas = { x: 0, y: 0 };
+
+      if (event.key === "ArrowUp" || event.key === "w") {
+        movementDeltas.y -= 1;
+      } else if (event.key === "ArrowDown" || event.key === "s") {
+        movementDeltas.y += 1;
+      } else if (event.key === "ArrowLeft" || event.key === "a") {
+        movementDeltas.x -= 1;
+      } else if (event.key === "ArrowRight" || event.key === "d") {
+        movementDeltas.x += 1;
+      }
+
+      socket.emit("moveUser", [movementDeltas.x, movementDeltas.y]);
+    };
+    document.addEventListener("keydown", moveUser);
+    return () => document.removeEventListener("keydown", moveUser);
+  }, []);
+
+  // Creates user
+  const createUser = (e: any) => {
+    e.preventDefault();
+    if (username.trim()) {
+      socket.emit("createUser", username);
+      setUsername("");
+    }
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="h-full w-full p-4 flex flex-col bg-white text-black gap-y-8">
+      <div className="mb-4">
+        <div className="text-lg font-bold">
+          <span>
+            Status:{" "}
+            {connected ? (
+              <span className="text-green-600">Connected</span>
+            ) : (
+              <span className="text-red-600">Disconnected</span>
+            )}
+          </span>
+          <span>Socket id: {socketId}</span>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      </div>
+
+      <form onSubmit={createUser} className="mb-4">
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="border p-2 rounded mr-2"
+          placeholder="Choose a username"
+        />
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          Create user
+        </button>
+      </form>
+
+      <div>
+        {Object.values(serverState.connections).map((user: User, index) => {
+          return (
+            <div key={index}>
+              <p
+                style={{
+                  position: "absolute",
+                  left: user.coordinate[0],
+                  top: user.coordinate[1],
+                  transition: "0.1s ease",
+                }}
+              >
+                {user.username}
+              </p>
+              <p key={user.username}>
+                x: {user.coordinate[0]}, y: {user.coordinate[1]}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: `repeat(${serverState.map.length}, ${40}px)`,
+          gridTemplateRows: `repeat(${serverState.map[0].length}, ${40}px)`,
+          gap: "0px",
+        }}
+      >
+        {serverState.map.map((block, rowIndex) =>
+          block.map((users, colIndex) => {
+            const tileKey = `${rowIndex}-${colIndex}`;
+            return (
+              <div
+                key={tileKey}
+                style={{
+                  width: tileSizeInPixels,
+                  height: tileSizeInPixels,
+                  backgroundColor: `${
+                    users.length > 0
+                      ? users.length > 1
+                        ? "purple"
+                        : "red"
+                      : "lightblue"
+                  }`,
+                  border: "1px solid black",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  position: "relative",
+                }}
+              >
+                {users.length > 0 && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "-20px",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      whiteSpace: "nowrap",
+                      fontSize: "12px",
+                      backgroundColor: "rgba(255, 255, 255, 0.8)",
+                      padding: "2px 4px",
+                      borderRadius: "4px",
+                    }}
+                  >
+                    {users.map((user) => {
+                      return (
+                        <div
+                          key={user[0]}
+                          className="flex flex-col space-y-2 w-full text-[6px]"
+                        >
+                          <div
+                            key={user[1].username}
+                            className="flex w-full justify-center"
+                          >
+                            {user[1].username}
+                          </div>
+                          {(serverState.proximityMap[user[0]] || []).map(
+                            (otherSocketId) => (
+                              <div key={otherSocketId} className="text-center">
+                                {otherSocketId}
+                              </div>
+                            )
+                          )}
+                        </div>
+                      );
+                    })}
+                    {/* {users.map((user) => {
+                      <div>Hi</div>;
+                    })} */}
+                  </div>
+                )}
+              </div>
+            );
+          })
+        )}
+      </div>
     </div>
   );
-}
+};
+
+export default SocketDemo;
