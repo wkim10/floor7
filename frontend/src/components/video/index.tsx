@@ -12,7 +12,7 @@ const Video = () => {
 
   return (
     <div className="flex flex-col py-4 gap-4">
-      <div className="flex items-center gap-4">
+      {/* <div className="flex items-center gap-4">
         <div>Start a video call</div>
         <input
           className="p-2 h-8 bg-red-50"
@@ -28,24 +28,24 @@ const Video = () => {
         >
           Connect
         </button>
-      </div>
+      </div> */}
       <div className="grid grid-cols-12 w-full gap-8">
-        <div className="flex flex-col col-span-6 gap-4">
+        <div className="flex flex-col col-span-6 gap-4 h-[300px]">
           <video
             id="me"
             autoPlay
             playsInline
-            className="w-full bg-gray-500 transform scaleX(-1)"
+            className="w-full h-full bg-gray-500 object-cover rounded-md transform scaleX(-1)"
             ref={meVideoRef}
             style={{ transform: "scaleX(-1)" }}
           />
         </div>
-        <div className="flex flex-col col-span-6 gap-4">
+        <div className="flex flex-col col-span-6 gap-4 h-[300px]">
           <video
             id="them"
             autoPlay
             playsInline
-            className="w-full bg-gray-500"
+            className="w-full h-full bg-gray-500 rounded-md object-cover"
             ref={otherVideoRef}
             style={{ transform: "scaleX(-1)" }}
           />

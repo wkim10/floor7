@@ -7,6 +7,13 @@ import Video from "@/components/video";
 import { socket } from "@/app/page";
 import Image from "next/image";
 import defaultMap from "@/utils/defaultMap.json";
+import Apple from "./AppleBooth";
+import MathWorks from "./MathWorksBooth";
+import Epic from "./EpicBooth";
+import Nvidia from "./NvidiaBooth";
+import Meta from "./MetaBooth";
+import Spotify from "./SpotifyBooth";
+import Conversation from "./Conversation";
 
 export const RoomMap = () => {
   const {
@@ -21,6 +28,18 @@ export const RoomMap = () => {
   const [showJoinChatModal, setShowJoinChatModal] = useState<boolean>(false);
   const [showOccupiedModal, setShowOccupiedModal] = useState<boolean>(false);
   const [showWebRTCModal, setShowWebRTCModal] = useState<boolean>(false);
+
+  // const tileSizeInPixels: number = 24;
+
+  const [showSpotifyModal, setShowSpotifyModal] = React.useState(false);
+  const [showAppleModal, setShowAppleModal] = React.useState(false);
+  const [showMetaModal, setShowMetaModal] = React.useState(false);
+  const [showEpicModal, setShowEpicModal] = React.useState(false);
+  const [showMathWorksModal, setShowMathWorksModal] = React.useState(false);
+  const [showNvidiaModal, setShowNvidiaModal] = React.useState(false);
+
+  const [showConversation, setShowConversation] = React.useState(true);
+
   useEffect(() => {
     // Connection status
     socket.on("connect", () => {
@@ -54,7 +73,10 @@ export const RoomMap = () => {
     socket.on("startConvo", ({ newServerState, convoId, conversation }) => {
       console.log(newServerState, convoId, conversation);
       if (socket.id != undefined) {
-        console.log("socketid found but connections", newServerState.connections);
+        console.log(
+          "socketid found but connections",
+          newServerState.connections
+        );
         const username = newServerState.connections[socket.id].username;
         if (
           username === conversation.user1 ||
@@ -110,120 +132,107 @@ export const RoomMap = () => {
   };
 
   return (
-    <div className="h-full w-full p-4 flex flex-col bg-white text-black gap-y-8 mt-24">
-      {showJoinChatModal && (
-        <div className="bg-white absolute left-50 top-50">
-          <div>Join chat?</div>
-          <div onClick={() => joinConversation()}>Join</div>
-          <div onClick={() => setShowJoinChatModal(false)}>Decline</div>
-        </div>
-      )}
-      {showOccupiedModal && (
-        <div className="bg-white absolute left-50 top-50">
-          <div>Seat occupied!</div>
-        </div>
-      )}
-      {showWebRTCModal && (
-        <div className="bg-red absolute left-50 top-50">You've joined!</div>
-      )}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(${serverState.map.length}, ${32}px)`,
-          gridTemplateRows: `repeat(${serverState.map[0].length}, ${32}px)`,
-          gap: "0px",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        {serverState.map.map((block, rowIndex) =>
-          block.map((tileItems, colIndex) => {
-            const tileKey = `${rowIndex}-${colIndex}`;
-            return (
-              <div
-                key={tileKey + colIndex}
-                className="relative border border-black/5 w-full h-full"
-              >
-                {/* Render static tiles (booth, chair, table) first */}
-                {tileItems.map((tileItem, index) => {
-                  if (tileItem.type === "booth") {
-                    return (
-                      <div
-                        key={`booth-${tileItem.id}`}
-                        className="absolute top-0 left-0 h-full w-full bg-red-400"
-                      />
-                    );
-                  } else if (tileItem.type === "chair") {
-                    return (
-                      <div
-                        key={`chair-${tileItem.id}`}
-                        className="absolute top-0 left-0 h-full w-full rounded-[9999px] bg-slate-400"
-                      />
-                    );
-                  } else if (tileItem.type === "table") {
-                    return (
-                      <div
-                        key={`table-${tileItem.id}`}
-                        className="absolute top-0 left-0 h-full w-full bg-blue-400"
-                      />
-                    );
-                  }
-                  return null;
-                })}
+    <>
+      {showAppleModal ? <Apple setShowModal={setShowAppleModal} /> : null}
+      {showMathWorksModal ? (
+        <MathWorks setShowModal={setShowMathWorksModal} />
+      ) : null}
+      {showEpicModal ? <Epic setShowModal={setShowEpicModal} /> : null}
+      {showNvidiaModal ? <Nvidia setShowModal={setShowNvidiaModal} /> : null}
+      {showMetaModal ? <Meta setShowModal={setShowMetaModal} /> : null}
+      {showSpotifyModal ? <Spotify setShowModal={setShowSpotifyModal} /> : null}
+      {showConversation ? (
+        <Conversation setShowModal={setShowConversation} />
+      ) : null}
+      <div className="h-full w-full p-4 flex flex-col bg-white text-black gap-y-8 mt-24">
+        <div
+          style={{
+            display: "grid",
+            // gridTemplateColumns: `repeat(${serverState.map.length}, ${32}px)`,
+            // gridTemplateRows: `repeat(${serverState.map[0].length}, ${32}px)`,
+            gridTemplateColumns: `repeat(${defaultMap.length}, ${32}px)`,
+            gridTemplateRows: `repeat(${defaultMap[0].length}, ${32}px)`,
+            gap: "0px",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {serverState.map.map((block, rowIndex) =>
+            block.map((users, colIndex) => {
+              const tileKey = `${rowIndex}-${colIndex}`;
+              const tileType = defaultMap[rowIndex][colIndex].type;
+              const tileCompany = defaultMap[rowIndex][colIndex].companyName;
+              const showName = defaultMap[rowIndex][colIndex].showName;
 
-                {/* Render users on top of static tiles */}
-                {Object.values(serverState.connections).map((mappedUser) => {
-                  if (
-                    mappedUser.coordinate[0] === rowIndex &&
-                    mappedUser.coordinate[1] === colIndex
-                  ) {
-                    return (
-                      <div key={mappedUser.username} className="absolute z-10 top-0 left-0">
-                        <Image
-                          alt={`${tileKey}-${mappedUser.username}`}
-                          src={`/images/avatar${parseInt(
-                            mappedUser.avatar
-                          )}.png`}
-                          width={32}
-                          height={32}
-                          className="rounded-full"
-                        />
-                        <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 whitespace-nowrap text-xs bg-white/80 px-2 py-1 rounded">
-                          {mappedUser.username}
+              return (
+                <div
+                  key={tileKey}
+                  className="relative border border-black/5 w-full h-full"
+                >
+                  {/* Background color layer */}
+                  <div
+                    className={`absolute inset-0 ${
+                      tileType === "booth"
+                        ? tileCompany === "spotify"
+                          ? "bg-[#1ED760]"
+                          : tileCompany === "mathworks"
+                          ? "bg-[#E43E04]"
+                          : tileCompany === "apple"
+                          ? "bg-[#B3B3B3]"
+                          : tileCompany === "epic"
+                          ? "bg-[#BE1E3F]"
+                          : tileCompany === "nvidia"
+                          ? "bg-[#76B900]"
+                          : "bg-[#007EF7]"
+                        : tileType === "chair"
+                        ? "bg-slate-400 rounded-lg"
+                        : tileType === "table"
+                        ? "bg-blue-400"
+                        : ""
+                    }`}
+                  />
+                  {showName ? (
+                    <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 whitespace-nowrap text-xs bg-white/80 px-2 py-1 rounded">
+                      {tileCompany}
+                    </div>
+                  ) : null}
+
+                  {/* Avatar layer */}
+                  {Object.values(serverState.connections).map((mappedUser) => {
+                    if (
+                      mappedUser.coordinate[0] === rowIndex &&
+                      mappedUser.coordinate[1] === colIndex
+                    ) {
+                      return (
+                        <div
+                          key={mappedUser.username}
+                          className="absolute z-10 top-0 left-0"
+                        >
+                          <Image
+                            alt={`${tileKey}-${mappedUser.username}`}
+                            src={`/images/avatar${parseInt(
+                              mappedUser.avatar
+                            )}.png`}
+                            width={32}
+                            height={32}
+                            className="rounded-full"
+                          />
+                          <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 whitespace-nowrap text-xs bg-white/80 px-2 py-1 rounded">
+                            {mappedUser.username}
+                          </div>
                         </div>
-                      </div>
-                    );
-                  } else if (defaultMap[rowIndex][colIndex].type === "booth") {
-                    return (
-                      <div
-                        key={mappedUser.username}
-                        className="absolute top-0 left-0 h-full w-full bg-red-400"
-                      />
-                    );
-                  } else if (defaultMap[rowIndex][colIndex].type === "chair") {
-                    return (
-                      <div
-                        key={mappedUser.username}
-                        className="absolute top-0 left-0 h-full w-full rounded-lg bg-slate-400"
-                      />
-                    );
-                  } else if (defaultMap[rowIndex][colIndex].type === "table") {
-                    return (
-                      <div
-                        key={mappedUser.username}
-                        className="absolute top-0 left-0 h-full w-full bg-blue-400"
-                      />
-                    );
-                  }
-                  return null;
-                })}
-              </div>
-            );
-          })
-        )}
+                      );
+                    }
+                    return null;
+                  })}
+                </div>
+              );
+            })
+          )}
+        </div>
+        {/* <Video /> */}
       </div>
-      <Video />
-    </div>
+    </>
   );
 };
 

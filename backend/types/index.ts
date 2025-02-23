@@ -69,10 +69,8 @@ export class ServerState {
       console.log(
         `Map loaded successfully. Dimensions: ${this.map.length}x${this.map[0].length}`
       );
-      
-      console.log(
-        `Conversations loaded. Conversations: ${this.conversations}`
-      );
+
+      console.log(`Conversations loaded. Conversations: ${this.conversations}`);
     } catch (error) {
       console.error("Error loading map configuration:", error);
       this.map = Array.from({ length: 21 }, () =>
@@ -193,9 +191,11 @@ export class ServerState {
     const users = this.map[r][c].filter((tile) => tile.type === TileType.user);
     const usernames = users.map((user) => this.connections[user.id].username);
 
-    return conversation.user1 !== null && usernames.includes(conversation.user1);
+    return (
+      conversation.user1 !== null && usernames.includes(conversation.user1)
+    );
   }
-  
+
   private updateProximity(socket: Socket, user: User) {
     const oldProximityUsers = this.proximityMap[socket.id] || [];
     const newProximityUsers = this.getProximityUsers(socket, user);
@@ -258,7 +258,7 @@ export class ServerState {
 
     const convo = this.conversations[convoId];
     if (!convo) return;
-    
+
     if (convo.user1 === null) {
       convo.user1 = username;
     } else if (convo.user2 === null) {
@@ -269,7 +269,7 @@ export class ServerState {
     if (convo.user1 && convo.user2) {
       convo.timestamp = Date.now();
     }
-    
+
     // this.conversations[convoId] = convo;
   }
 }

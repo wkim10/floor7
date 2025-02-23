@@ -188,7 +188,8 @@
     {
       "type": "booth",
       "id": "booth1",
-      "companyName": "spotify"
+      "companyName": "spotify",
+      "showName": true
     },
     {
       "type": "booth",
@@ -219,7 +220,8 @@
     {
       "type": "booth",
       "id": "booth2",
-      "companyName": "mathworks"
+      "companyName": "mathworks",
+      "showName": true
     },
     {
       "type": "booth",
@@ -250,7 +252,8 @@
     {
       "type": "booth",
       "id": "booth3",
-      "companyName": "apple"
+      "companyName": "apple",
+      "showName": true
     },
     {
       "type": "booth",
@@ -550,7 +553,8 @@
     {
       "type": "booth",
       "id": "booth4",
-      "companyName": "meta"
+      "companyName": "meta",
+      "showName": true
     },
     {
       "type": "booth",
@@ -581,7 +585,8 @@
     {
       "type": "booth",
       "id": "booth5",
-      "companyName": "nvidia"
+      "companyName": "nvidia",
+      "showName": true
     },
     {
       "type": "booth",
@@ -612,7 +617,8 @@
     {
       "type": "booth",
       "id": "booth6",
-      "companyName": "epic"
+      "companyName": "epic",
+      "showName": true
     },
     {
       "type": "booth",
