@@ -96,12 +96,13 @@ export const RoomMap = () => {
                     mappedUser.coordinate[1] === colIndex
                   ) {
                     return (
-                      <div key={mappedUser.username} className="absolute top-0 left-0">
+                      <div key={mappedUser.username} className="absolute z-10 top-0 left-0">
                         <Image
                           alt={`${tileKey}-${mappedUser.username}`}
                           src={`/images/avatar${parseInt(mappedUser.avatar)}.png`}
                           width={32}
                           height={32}
+                          className="rounded-full"
                         />
                         <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 whitespace-nowrap text-xs bg-white/80 px-2 py-1 rounded">
                           {mappedUser.username}
@@ -119,7 +120,7 @@ export const RoomMap = () => {
                     return (
                       <div
                         key={mappedUser.username}
-                        className="absolute top-0 left-0 h-full w-full rounded-[9999px] bg-slate-400"
+                        className="absolute top-0 left-0 h-full w-full rounded-lg bg-slate-400"
                       />
                     );
                   } else if (defaultMap[rowIndex][colIndex].type === "table") {
