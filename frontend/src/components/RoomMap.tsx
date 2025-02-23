@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { ServerState } from "@/app/types";
 import useAppStore from "@/store";
-import Video from "@/components/video";
+// import Video from "@/components/video";
 import { socket } from "@/app/page";
 import Image from "next/image";
 import defaultMap from "@/utils/defaultMap.json";
@@ -39,8 +39,17 @@ export const RoomMap = () => {
   const [showNvidiaModal, setShowNvidiaModal] = React.useState(false);
 
   const [showConversation, setShowConversation] = React.useState(false);
-
-  const [other, setOther] = useState<string>();
+  const [showAppleConversation, setShowAppleConversation] =
+    React.useState(false);
+  const [showMetaConversation, setShowMetaConversation] = React.useState(false);
+  const [showEpicConversation, setShowEpicConversation] = React.useState(false);
+  const [showMathWorksConversation, setShowMathWorksConversation] =
+    React.useState(false);
+  const [showNvidiaConversation, setShowNvidiaConversation] =
+    React.useState(false);
+  const [showSpotifyConversation, setShowSpotifyConversation] =
+    React.useState(false);
+  const [viewBooth, setViewBooth] = React.useState("");
 
   useEffect(() => {
     // Connection status
@@ -110,6 +119,48 @@ export const RoomMap = () => {
     };
   }, [serverState, setServerState, setConnected]);
 
+  //   socket.on("startConvo", ({ newServerState, convoId, conversation }) => {
+  //     console.log(newServerState, convoId, conversation);
+  //     if (socket.id != undefined) {
+  //       console.log(
+  //         "socketid found but connections",
+  //         newServerState.connections
+  //       );
+  //       const username = newServerState.connections[socket.id].username;
+  //       if (
+  //         username === conversation.user1 ||
+  //         username === conversation.user2
+  //       ) {
+  //         console.log("Start convo", convoId, conversation);
+  //         setShowWebRTCModal(true);
+  //       }
+  //     } else {
+  //       console.log("socketid not foun in startConvo");
+  //     }
+  //   });
+
+  //   // Replace the existing showBoothModal handler with:
+  //   socket.on("showBoothModal", ({ socketId, companyName }) => {
+  //     if (socket.id && socketId === socket.id) {
+  //       setViewBooth(companyName);
+  //     }
+  //   });
+
+  //   socket.on("hideBoothModal", ({ socketId }) => {
+  //     if (socket.id && socketId === socket.id) {
+  //       setViewBooth("");
+  //     }
+  //   });
+
+  //   socket.on("moveToTile", (x: number, y: number) => {});
+
+  //   return () => {
+  //     socket.off("connect");
+  //     socket.off("disconnect");
+  //     socket.off("serverStateUpdate");
+  //   };
+  // }, [serverState, setServerState, setConnected]);
+
   useEffect(() => {
     // Move user around
     const moveUser = (event: KeyboardEvent) => {
@@ -136,33 +187,79 @@ export const RoomMap = () => {
     return;
   }
 
-  const joinConversation = () => {
-    // Backend will handle updating conversation mapping
-    socket.emit("joinConvo");
-    setShowJoinChatModal(false);
-  };
+  // const joinConversation = () => {
+  //   // Backend will handle updating conversation mapping
+  //   socket.emit("joinConvo");
+  //   setShowJoinChatModal(false);
+  // };
 
   return (
     <>
-      {showJoinChatModal && (
-        <div
-          className="text-red absolute top-50 left-50"
-          onClick={() => joinConversation()}
-        >
-          Join convo???
-        </div>
-      )}
-
-      {showAppleModal ? <Apple setShowModal={setShowAppleModal} /> : null}
-      {showMathWorksModal ? (
-        <MathWorks setShowModal={setShowMathWorksModal} />
+      {showAppleModal ? (
+        <Apple
+          setShowModal={setShowAppleModal}
+          setConversationModal={setShowAppleConversation}
+        />
       ) : null}
-      {showEpicModal ? <Epic setShowModal={setShowEpicModal} /> : null}
-      {showNvidiaModal ? <Nvidia setShowModal={setShowNvidiaModal} /> : null}
-      {showMetaModal ? <Meta setShowModal={setShowMetaModal} /> : null}
-      {showSpotifyModal ? <Spotify setShowModal={setShowSpotifyModal} /> : null}
+      {showMathWorksModal ? (
+        <MathWorks
+          setShowModal={setShowMathWorksModal}
+          setConversationModal={setShowMathWorksConversation}
+        />
+      ) : null}
+      {showEpicModal ? (
+        <Epic
+          setShowModal={setShowEpicModal}
+          setConversationModal={setShowEpicConversation}
+        />
+      ) : null}
+      {showNvidiaModal ? (
+        <Nvidia
+          setShowModal={setShowNvidiaModal}
+          setConversationModal={setShowNvidiaConversation}
+        />
+      ) : null}
+      {showMetaModal ? (
+        <Meta
+          setShowModal={setShowMetaModal}
+          setConversationModal={setShowMetaConversation}
+        />
+      ) : null}
+      {showSpotifyModal ? (
+        <Spotify
+          setShowModal={setShowSpotifyModal}
+          setConversationModal={setShowSpotifyConversation}
+        />
+      ) : null}
       {showConversation ? (
-        <Conversation other={other} setShowModal={setShowConversation} />
+        <Conversation setShowModal={setShowConversation} />
+      ) : null}
+      {showAppleConversation ? (
+        <Conversation setShowModal={setShowAppleConversation} company="apple" />
+      ) : null}
+      {showEpicConversation ? (
+        <Conversation setShowModal={setShowEpicConversation} company="epic" />
+      ) : null}
+      {showMetaConversation ? (
+        <Conversation setShowModal={setShowMetaConversation} company="meta" />
+      ) : null}
+      {showNvidiaConversation ? (
+        <Conversation
+          setShowModal={setShowNvidiaConversation}
+          company="nvidia"
+        />
+      ) : null}
+      {showSpotifyConversation ? (
+        <Conversation
+          setShowModal={setShowSpotifyConversation}
+          company="spotify"
+        />
+      ) : null}
+      {showMathWorksConversation ? (
+        <Conversation
+          setShowModal={setShowMathWorksConversation}
+          company="mathworks"
+        />
       ) : null}
       <div className="h-full w-full p-4 flex flex-col bg-white text-black gap-y-8 mt-24">
         <div
@@ -189,7 +286,6 @@ export const RoomMap = () => {
                   key={tileKey}
                   className="relative border border-black/5 w-full h-full"
                 >
-                  {/* Background color layer */}
                   <div
                     className={`absolute inset-0 ${
                       tileType === "booth"
@@ -240,6 +336,38 @@ export const RoomMap = () => {
                           <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 whitespace-nowrap text-xs bg-white/80 px-2 py-1 rounded">
                             {mappedUser.username}
                           </div>
+                          {viewBooth !== "" &&
+                          socket.id &&
+                          mappedUser.username ===
+                            serverState.connections[socket.id].username ? (
+                            <div
+                              onClick={() => {
+                                switch (viewBooth) {
+                                  case "spotify":
+                                    setShowSpotifyModal(true);
+                                    break;
+                                  case "apple":
+                                    setShowAppleModal(true);
+                                    break;
+                                  case "meta":
+                                    setShowMetaModal(true);
+                                    break;
+                                  case "epic":
+                                    setShowEpicModal(true);
+                                    break;
+                                  case "mathworks":
+                                    setShowMathWorksModal(true);
+                                    break;
+                                  case "nvidia":
+                                    setShowNvidiaModal(true);
+                                    break;
+                                }
+                              }}
+                              className="absolute whitespace-nowrap cursor-pointer p-3 text-[12px] rounded-xl bg-opacity-60 bg-black inline-block text-white"
+                            >
+                              View booth
+                            </div>
+                          ) : null}
                         </div>
                       );
                     }
@@ -250,6 +378,7 @@ export const RoomMap = () => {
             })
           )}
         </div>
+        {/* <Video /> */}
       </div>
     </>
   );
