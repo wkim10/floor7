@@ -184,43 +184,6 @@ export default function CareerFairTemplate() {
           </div>
         ) : null}
       </div>
-      <div className="absolute bottom-[3%] z-10 left-[3%] flex shadow-[0_0_8px_0_rgba(0,0,0,0.25)] cursor-pointer items-center gap-[10px] bg-white p-3 rounded-xl justify-self-start">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="22"
-          height="19"
-          viewBox="0 0 22 19"
-          fill="none"
-        >
-          <path
-            d="M19 14L21 16L19 18"
-            stroke="black"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M19 1L21 3L19 5"
-            stroke="black"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M21 3H17.5C13.9102 3 11 5.91015 11 9.5C11 13.0898 13.9102 16 17.5 16H21"
-            stroke="black"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-          />
-          <path
-            d="M1 16H4.5C8.08985 16 11 13.0898 11 9.5C11 5.91015 8.08985 3 4.5 3H1"
-            stroke="black"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-          />
-        </svg>
-        <div className="select-none">Shuffle background</div>
-      </div>
     </div>
   );
 }
