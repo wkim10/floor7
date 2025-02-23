@@ -69,7 +69,7 @@ export class ServerState {
     //   console.log(
     //     `Map loaded successfully. Dimensions: ${this.map.length}x${this.map[0].length}`
     //   );
-      
+
     //   console.log(
     //     `Conversations loaded. Conversations: ${this.conversations}`
     //   );
@@ -111,7 +111,7 @@ export class ServerState {
   }
 
   public addUser(username: string, avatar: string, socket: Socket) {
-    const spawnX = 14;
+    const spawnX = 10;
     const spawnY = 10;
     const user: User = {
       coordinate: [spawnX, spawnY],
@@ -195,8 +195,7 @@ export class ServerState {
 
     return conversation.user1 !== null && usersIds.includes(conversation.user1);
   }
-  
-  
+
   private updateProximity(socket: Socket, user: User) {
     const oldProximityUsers = this.proximityMap[socket.id] || [];
     const newProximityUsers = this.getProximityUsers(socket, user);
@@ -259,7 +258,7 @@ export class ServerState {
     const user = this.connections[socketId];
     if (!user) return;
 
-    console.log("user found")
+    console.log("user found");
 
     // const [x, y] = user.coordinate;
     // const chair = this.map[x][y][0];

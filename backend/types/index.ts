@@ -109,7 +109,7 @@ export class ServerState {
   }
 
   public addUser(username: string, avatar: string, socket: Socket) {
-    const spawnX = 14;
+    const spawnX = 10;
     const spawnY = 10;
     const user: User = {
       coordinate: [spawnX, spawnY],
