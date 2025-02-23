@@ -10,16 +10,20 @@ export interface AppStore {
   setConnected: (connected: boolean) => void;
   serverState: ServerState;
   setServerState: (state: ServerState) => void;
+  socketId: string;
+  setSocketId: (socketId: string) => void;
 }
 
 const useAppStore = create<AppStore>((set) => ({
   username: "",
   setOther: (other) => set({ other }),
-  setUsername: (username) => set({ username }),
+  setUsername: (username: string) => set({ username }),
   connected: false,
-  setConnected: (connected) => set({ connected }),
+  setConnected: (connected: boolean) => set({ connected }),
   serverState: new ServerState(),
-  setServerState: (serverState) => set({ serverState }),
+  setServerState: (serverState: ServerState) => set({ serverState }),
+  socketId: "",
+  setSocketId: (socketId: string) => set({ socketId }),
 }));
 
 export default useAppStore;
