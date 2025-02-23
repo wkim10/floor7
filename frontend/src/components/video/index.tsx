@@ -1,14 +1,32 @@
 "use client";
 
 import { useWebRtc } from "@/hooks/useWebRtc";
-import { useRef, useState } from "react";
+import useAppStore from "@/store";
+import { useEffect, useRef, useState } from "react";
 
-const Video = () => {
-  const [other, setOther] = useState<string>("");
+interface VideoProps {
+  setShowModal: (showModal: boolean) => void;
+}
+
+const Video = ({ setShowModal }: VideoProps) => {
+  const { other } = useAppStore();
+
   const meVideoRef = useRef<HTMLVideoElement>(null);
   const otherVideoRef = useRef<HTMLVideoElement>(null);
 
-  const { call, camera } = useWebRtc({ meVideoRef, otherVideoRef });
+  const { call, camera, close } = useWebRtc({ meVideoRef, otherVideoRef });
+
+  useEffect(() => {
+    // Open camera for both
+    camera();
+
+    // Call after some time to account for camera setting up
+    setTimeout(() => {
+      if (other) {
+        call(other);
+      }
+    }, 2000);
+  }, []);
 
   return (
     <div className="flex flex-col py-4 gap-4">
@@ -16,14 +34,14 @@ const Video = () => {
         <div>Start a video call</div>
         <input
           className="p-2 h-8 bg-red-50"
-          placeholder="Enter username"
-          onChange={(e) => setOther(e.target.value)}
+          placeholder="Enter socket id"
+          onChange={(e) => setLocalOther(e.target.value)}
         />
         <button
           className="bg-green-500 p-2 text-white"
           onClick={(e) => {
             e.preventDefault();
-            call(other);
+            call(localOther);
           }}
         >
           Connect
@@ -51,12 +69,21 @@ const Video = () => {
           />
         </div>
       </div>
-      <button
+      <div
+        onClick={() => {
+          close();
+          setShowModal(false);
+        }}
+        className="bg-black cursor-pointer rounded-xl p-3 text-white bg-opacity-60 mt-4"
+      >
+        Leave Conversation
+      </div>
+      {/* <button
         className="bg-green-500 p-2 w-fit text-white self-center"
         onClick={camera}
       >
         Turn on webcam
-      </button>
+      </button> */}
     </div>
   );
 };

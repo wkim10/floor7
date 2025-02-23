@@ -151,114 +151,16 @@
       "id": ""
     },
     {
-      "type": "empty",
+      "type": "hole2",
+      "id": ""
+    },
+    {
+      "type": "hole2",
       "id": ""
     },
     {
       "type": "empty",
       "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    }
-  ],
-  [
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "booth",
-      "id": "booth1",
-      "companyName": "spotify"
-    },
-    {
-      "type": "booth",
-      "id": "booth1",
-      "companyName": "spotify",
-      "showName": true
-    },
-    {
-      "type": "booth",
-      "id": "booth1",
-      "companyName": "spotify"
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "booth",
-      "id": "booth2",
-      "companyName": "mathworks"
-    },
-    {
-      "type": "booth",
-      "id": "booth2",
-      "companyName": "mathworks",
-      "showName": true
-    },
-    {
-      "type": "booth",
-      "id": "booth2",
-      "companyName": "mathworks"
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "booth",
-      "id": "booth3",
-      "companyName": "apple"
-    },
-    {
-      "type": "booth",
-      "id": "booth3",
-      "companyName": "apple",
-      "showName": true
-    },
-    {
-      "type": "booth",
-      "id": "booth3",
-      "companyName": "apple"
     },
     {
       "type": "empty",
@@ -337,21 +239,21 @@
       "id": ""
     },
     {
-      "type": "empty",
+      "type": "hole2",
       "id": ""
     },
     {
-      "type": "booth",
+      "type": "hole",
       "id": "booth3",
       "companyName": "apple"
     },
     {
-      "type": "booth",
+      "type": "hole",
       "id": "booth3",
       "companyName": "apple"
     },
     {
-      "type": "booth",
+      "type": "hole2",
       "id": "booth3",
       "companyName": "apple"
     },
@@ -374,8 +276,19 @@
       "id": ""
     },
     {
-      "type": "empty",
-      "id": ""
+      "type": "booth",
+      "id": "booth1",
+      "companyName": "spotify"
+    },
+    {
+      "type": "booth",
+      "id": "booth1",
+      "companyName": "spotify"
+    },
+    {
+      "type": "booth",
+      "id": "booth1",
+      "companyName": "spotify"
     },
     {
       "type": "empty",
@@ -394,8 +307,19 @@
       "id": ""
     },
     {
-      "type": "empty",
-      "id": ""
+      "type": "booth",
+      "id": "booth2",
+      "companyName": "mathworks"
+    },
+    {
+      "type": "booth",
+      "id": "booth2",
+      "companyName": "mathworks"
+    },
+    {
+      "type": "booth",
+      "id": "booth2",
+      "companyName": "mathworks"
     },
     {
       "type": "empty",
@@ -406,43 +330,30 @@
       "id": ""
     },
     {
-      "type": "empty",
+      "type": "hole2",
       "id": ""
     },
     {
-      "type": "empty",
+      "type": "hole",
       "id": ""
     },
     {
-      "type": "empty",
-      "id": ""
+      "type": "hole1",
+      "id": "booth3",
+      "companyName": "apple"
     },
     {
-      "type": "empty",
-      "id": ""
+      "type": "hole1",
+      "id": "booth3",
+      "companyName": "apple"
     },
     {
-      "type": "empty",
-      "id": ""
+      "type": "hole",
+      "id": "booth3",
+      "companyName": "apple"
     },
     {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
+      "type": "hole2",
       "id": ""
     },
     {
@@ -508,6 +419,48 @@
       "id": ""
     },
     {
+      "type": "hole2",
+      "id": ""
+    },
+    {
+      "type": "hole",
+      "id": ""
+    },
+    {
+      "type": "hole1",
+      "id": ""
+    },
+    {
+      "type": "hole1",
+      "id": ""
+    },
+    {
+      "type": "hole",
+      "id": ""
+    },
+    {
+      "type": "hole2",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
       "type": "empty",
       "id": ""
     },
@@ -525,6 +478,50 @@
     },
     {
       "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "hole2",
+      "id": ""
+    },
+    {
+      "type": "hole",
+      "id": ""
+    },
+    {
+      "type": "hole",
+      "id": ""
+    },
+    {
+      "type": "hole2",
       "id": ""
     },
     {
@@ -553,8 +550,7 @@
     {
       "type": "booth",
       "id": "booth4",
-      "companyName": "meta",
-      "showName": true
+      "companyName": "meta"
     },
     {
       "type": "booth",
@@ -585,8 +581,7 @@
     {
       "type": "booth",
       "id": "booth5",
-      "companyName": "nvidia",
-      "showName": true
+      "companyName": "nvidia"
     },
     {
       "type": "booth",
@@ -610,12 +605,12 @@
       "id": ""
     },
     {
-      "type": "booth",
+      "type": "hole2",
       "id": "booth6",
       "companyName": "epic"
     },
     {
-      "type": "booth",
+      "type": "hole2",
       "id": "booth6",
       "companyName": "epic",
       "showName": true

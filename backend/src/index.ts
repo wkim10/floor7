@@ -52,7 +52,6 @@ io.on("connection", (socket: socket.Socket) => {
   socket.on("moveUser", (deltas: [number, number]) => {
     const user = serverState.connections[socket.id];
     if (!user) return;
-    // TODO: If user not found?
 
     serverState.moveUser(
       user.coordinate[0] + deltas[1],
@@ -72,6 +71,23 @@ io.on("connection", (socket: socket.Socket) => {
       serverState.checkChairOccupied(user.coordinate[0], user.coordinate[1])
     ) {
       io.emit("showOccupiedModal", socket.id);
+    }
+
+    // If booth, show booth modal
+    if (tile.type === "booth") {
+      io.emit("showBoothModal", {
+        socketId: socket.id,
+        companyName: tile.companyName,
+      });
+    }
+
+    // If tile is empty, hide the booth and join modals
+    if (tile.type === "empty") {
+      console.log("Empty tile, hide modals");
+      io.emit("hideBoothModal", {
+        socketId: socket.id,
+      });
+      io.emit("hideJoinModal", socket.id);
     }
 
     io.emit("serverStateUpdate", serverState);
@@ -112,6 +128,37 @@ io.on("connection", (socket: socket.Socket) => {
       message: data.message,
       username: user.username,
       timestamp: Date.now(),
+    });
+  });
+  socket.on("offer", ({ from, to, offer }) => {
+    console.log("Offer received, emitting to clients", from, to);
+    io.to(to).emit("offer", {
+      from,
+      to,
+      offer,
+    });
+  });
+  socket.on("answer", ({ from, to, answer }) => {
+    console.log("Answer received, emitting to clients", from, to);
+    io.to(to).emit("answer", {
+      from,
+      to,
+      answer,
+    });
+  });
+  socket.on("iceCandidate", ({ from, to, iceCandidate }) => {
+    console.log(
+      "Ice candidate received on backend, emitting to clients from",
+      from,
+      "to",
+      to,
+      "iceCandidate",
+      iceCandidate
+    );
+    io.to(to).emit("iceCandidate", {
+      from,
+      to,
+      iceCandidate,
     });
   });
 });

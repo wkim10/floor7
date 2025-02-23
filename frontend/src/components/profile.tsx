@@ -3,7 +3,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { socket } from "@/app/page";
+import { socket } from "@/app/intro/page";
 
 type ProfileData = {
   name: string;
@@ -38,8 +38,35 @@ export default function Profile({
     initialData?.avatar || 1
   );
   const [isSaved, setIsSaved] = React.useState(false);
+  const [errors, setErrors] = React.useState({
+    name: "",
+    email: "",
+  });
 
   const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = { name: "", email: "" };
+
+    if (!name.trim()) {
+      newErrors.name = "Name is required";
+      isValid = false;
+    }
+
+    if (!email.trim()) {
+      newErrors.email = "Email is required";
+      isValid = false;
+    } else if (!emailRegex.test(email)) {
+      newErrors.email = "Please enter a valid email address";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
 
   const handleUploadClick = () => {
     fileInputRef.current?.click();
@@ -61,6 +88,7 @@ export default function Profile({
   };
 
   const handleClick = () => {
+    if (!validateForm()) return;
     if (edit && !isSaved) {
       setIsSaved(true);
       setTimeout(() => setIsSaved(false), 2000);
@@ -160,7 +188,9 @@ export default function Profile({
           <div>
             <div className="text-xl mb-1">Name</div>
             <input
-              className="w-[419px] p-2 rounded-lg bg-[#D9D9D9] bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-[#273CB2] transition-all"
+              className={`w-[419px] p-2 rounded-lg bg-[#D9D9D9] bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-[#273CB2] ${
+                errors.name && "ring-2 ring-red-500"
+              } transition-all`}
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -169,7 +199,9 @@ export default function Profile({
           <div>
             <div className="text-xl mb-1">Email</div>
             <input
-              className="w-[419px] p-2 rounded-lg bg-[#D9D9D9] bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-[#273CB2] transition-all"
+              className={`w-[419px] p-2 rounded-lg bg-[#D9D9D9] bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-[#273CB2] ${
+                errors.email && "ring-2 ring-red-500"
+              } transition-all`}
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -260,7 +292,7 @@ export default function Profile({
         </div>
         <div
           onClick={handleClick}
-          className={`shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] p-3 rounded-xl justify-self-center col-start-2 
+          className={`shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] p-3 rounded-xl justify-self-center col-start-2
           transition-all duration-300 ${
             isSaved
               ? "bg-green-500 scale-[0.98] cursor-default"

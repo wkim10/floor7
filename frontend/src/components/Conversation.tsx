@@ -1,11 +1,12 @@
 import Video from "./video";
 
 interface props {
+  other?: string;
   company?: string;
   setShowModal: (showModal: boolean) => void;
 }
 
-export default function Conversation({ company, setShowModal }: props) {
+export default function Conversation({ other, company, setShowModal }: props) {
   const color =
     company === "spotify"
       ? "bg-[#1ED760]"
@@ -27,19 +28,13 @@ export default function Conversation({ company, setShowModal }: props) {
       <div className={`flex flex-col items-center relative max-h-screen`}>
         {company ? (
           <div className="mb-[30px] rounded-xl p-3 bg-white bg-opacity-90 text-[32px] font-bold shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
-            {company.toUpperCase()}
+            {company.charAt(0).toUpperCase() + company.slice(1).toLowerCase()}
           </div>
         ) : null}
         <div
           className={`flex gap-9 p-11 ${color} w-[80%] h-[70%] border-[6px] border-solid border-black rounded-xl`}
         >
-          <Video />
-        </div>
-        <div
-          onClick={() => setShowModal(false)}
-          className="bg-black cursor-pointer rounded-xl p-3 text-white bg-opacity-60 mt-4"
-        >
-          Back to booths
+          <Video setShowModal={setShowModal}/>
         </div>
       </div>
     </div>

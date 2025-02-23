@@ -47,11 +47,26 @@ export default function CareerFairTemplate() {
               className="cursor-pointer"
               onClick={() => setShowAnnouncements(false)}
             >
-              <mask id="mask0_7_2138" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
-                <rect width="24" height="24" transform="matrix(1 0 0 -1 0 24)" fill="#D9D9D9" />
+              <mask
+                id="mask0_7_2138"
+                maskUnits="userSpaceOnUse"
+                x="0"
+                y="0"
+                width="24"
+                height="24"
+              >
+                <rect
+                  width="24"
+                  height="24"
+                  transform="matrix(1 0 0 -1 0 24)"
+                  fill="#D9D9D9"
+                />
               </mask>
               <g mask="url(#mask0_7_2138)">
-                <path d="M12 13.2L7.4 8.6L6 10L12 16L18 10L16.6 8.6L12 13.2Z" fill="#1C1B1F" />
+                <path
+                  d="M12 13.2L7.4 8.6L6 10L12 16L18 10L16.6 8.6L12 13.2Z"
+                  fill="#1C1B1F"
+                />
               </g>
             </svg>
           ) : (
@@ -75,7 +90,10 @@ export default function CareerFairTemplate() {
                 <rect width="24" height="24" fill="#D9D9D9" />
               </mask>
               <g mask="url(#mask0_32_1979)">
-                <path d="M12 10.8L7.4 15.4L6 14L12 8L18 14L16.6 15.4L12 10.8Z" fill="#1C1B1F" />
+                <path
+                  d="M12 10.8L7.4 15.4L6 14L12 8L18 14L16.6 15.4L12 10.8Z"
+                  fill="#1C1B1F"
+                />
               </g>
             </svg>
           )}
@@ -88,10 +106,10 @@ export default function CareerFairTemplate() {
       </div>
       <div className="flex flex-col gap-2 z-10 absolute top-[3%] right-[3%]">
         <div className="flex gap-4">
-          <div className="font-bold select-none shadow-[0_0_8px_0_rgba(0,0,0,0.25)] gap-2 p-3 rounded-xl bg-white bg-opacity-90 z-50">
+          {/* <div className="font-bold select-none shadow-[0_0_8px_0_rgba(0,0,0,0.25)] gap-2 p-3 rounded-xl bg-white bg-opacity-90 z-50">
             Your position (Spotify): 4
-          </div>
-          <div className="shadow-[0_0_8px_0_rgba(0,0,0,0.25)] flex items-center justify-between w-[183px] p-3 rounded-xl bg-white bg-opacity-90 z-50">
+          </div> */}
+          {/* <div className="shadow-[0_0_8px_0_rgba(0,0,0,0.25)] flex items-center justify-between w-[183px] p-3 rounded-xl bg-white bg-opacity-90 z-50">
             <div className="flex items-center gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -140,7 +158,10 @@ export default function CareerFairTemplate() {
                   <rect width="24" height="24" fill="#D9D9D9" />
                 </mask>
                 <g mask="url(#mask0_32_1979)">
-                  <path d="M12 10.8L7.4 15.4L6 14L12 8L18 14L16.6 15.4L12 10.8Z" fill="#1C1B1F" />
+                  <path
+                    d="M12 10.8L7.4 15.4L6 14L12 8L18 14L16.6 15.4L12 10.8Z"
+                    fill="#1C1B1F"
+                  />
                 </g>
               </svg>
             ) : (
@@ -161,14 +182,22 @@ export default function CareerFairTemplate() {
                   width="24"
                   height="24"
                 >
-                  <rect width="24" height="24" transform="matrix(1 0 0 -1 0 24)" fill="#D9D9D9" />
+                  <rect
+                    width="24"
+                    height="24"
+                    transform="matrix(1 0 0 -1 0 24)"
+                    fill="#D9D9D9"
+                  />
                 </mask>
                 <g mask="url(#mask0_7_2138)">
-                  <path d="M12 13.2L7.4 8.6L6 10L12 16L18 10L16.6 8.6L12 13.2Z" fill="#1C1B1F" />
+                  <path
+                    d="M12 13.2L7.4 8.6L6 10L12 16L18 10L16.6 8.6L12 13.2Z"
+                    fill="#1C1B1F"
+                  />
                 </g>
               </svg>
             )}
-          </div>
+          </div> */}
         </div>
         {showNotes ? (
           <div className="self-end flex flex-col gap-[10px] w-[253px] shadow-[0_0_8px_0_rgba(0,0,0,0.25)] p-3 rounded-xl bg-white bg-opacity-90">
