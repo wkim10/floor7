@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { ServerState } from "@/app/types";
 import useAppStore from "@/store";
-// import Video from "@/components/video";
-import { socket } from "@/app/page";
+import Video from "@/components/video";
+import { socket } from "@/app/intro/page";
 import Image from "next/image";
 import defaultMap from "@/utils/defaultMap.json";
 import Apple from "./AppleBooth";
@@ -133,6 +133,21 @@ export const RoomMap = () => {
         ) {
           console.log("Start convo", convoId, conversation);
           setShowWebRTCModal(true);
+          const otherUsername =
+            username === conversation.user1
+              ? conversation.user2
+              : conversation.user1;
+          let otherSocketId = "";
+          for (const key of Object.keys(newServerState.connections)) {
+            if (newServerState.connections[key].username === otherUsername) {
+              otherSocketId = key;
+            }
+          }
+          if (username === conversation.user1) {
+            setOther(otherSocketId);
+          }
+
+          setShowConversation(true);
         }
       } else {
         console.log("socketid not foun in startConvo");
