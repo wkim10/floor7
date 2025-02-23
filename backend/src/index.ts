@@ -64,7 +64,46 @@ io.on("connection", (socket: socket.Socket) => {
       socket
     );
 
+    const tile = serverState.map[user.coordinate[0]][user.coordinate[1]][0];
+    if (
+      tile.type === "chair" &&
+      !serverState.checkChairOccupied(user.coordinate[0], user.coordinate[1])
+    ) {
+      console.log("Not occupied");
+      io.emit("showJoinModal", socket.id);
+    } else if (
+      tile.type === "chair" &&
+      serverState.checkChairOccupied(user.coordinate[0], user.coordinate[1])
+    ) {
+      io.emit("showOccupiedModal", socket.id);
+    }
+
     io.emit("serverStateUpdate", serverState);
+  });
+
+  socket.on("joinConvo", () => {
+    const user = serverState.connections[socket["id"]];
+    const tile = serverState.map[user.coordinate[0]][user.coordinate[1]][0];
+    if (
+      tile.type === "chair" &&
+      !serverState.checkChairOccupied(user.coordinate[0], user.coordinate[1])
+    ) {
+      serverState.joinConvo(tile.id, user.username, socket.id);
+      console.log("serverState in joinConvo", serverState);
+      io.emit("serverStateUpdate", serverState);
+
+      // If there are both users that have joined the convo, show WebRTC video streaming
+      if (
+        serverState.conversations[tile.id].user1 &&
+        serverState.conversations[tile.id].user2
+      ) {
+        io.emit("startConvo", {
+          newServerState: serverState,
+          convoId: tile.id,
+          conversation: serverState.conversations[tile.id], // Add this
+        });
+      }
+    }
   });
 });
 
