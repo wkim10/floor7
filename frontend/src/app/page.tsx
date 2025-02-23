@@ -1,18 +1,24 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { io } from "socket.io-client";
 import { ServerState, User } from "./types/index";
+import useAppStore from "@/store";
 
-const socket = io("http://localhost:8000");
+export const socket = io("http://localhost:8000");
 
 const SocketDemo = () => {
-  const [username, setUsername] = useState<string>("");
-  const [connected, setConnected] = useState(false);
-  const [serverState, setServerState] = useState<ServerState>(
-    new ServerState()
-  );
+  const {
+    username,
+    setUsername,
+    connected,
+    setConnected,
+    serverState,
+    setServerState,
+  } = useAppStore();
 
+  const id = socket["id"];
+  console.log(id);
   const tileSizeInPixels: number = 40;
 
   useEffect(() => {
@@ -35,35 +41,33 @@ const SocketDemo = () => {
 
     socket.on("moveToTile", (x: number, y: number) => {});
 
-    setUpKeyboardEvents();
-
     return () => {
       socket.off("connect");
       socket.off("disconnect");
       socket.off("serverStateUpdate");
     };
-  }, []);
+  }, [serverState, setServerState, setConnected]);
 
-  const setUpKeyboardEvents = () => {
+  useEffect(() => {
+    // Move user around
+    const moveUser = (event: KeyboardEvent) => {
+      const movementDeltas = { x: 0, y: 0 };
+
+      if (event.key === "ArrowUp" || event.key === "w") {
+        movementDeltas.y -= 1;
+      } else if (event.key === "ArrowDown" || event.key === "s") {
+        movementDeltas.y += 1;
+      } else if (event.key === "ArrowLeft" || event.key === "a") {
+        movementDeltas.x -= 1;
+      } else if (event.key === "ArrowRight" || event.key === "d") {
+        movementDeltas.x += 1;
+      }
+
+      socket.emit("moveUser", [movementDeltas.x, movementDeltas.y]);
+    };
     document.addEventListener("keydown", moveUser);
-  };
-
-  // Move user around
-  const moveUser = (event: KeyboardEvent) => {
-    const movementDeltas = { x: 0, y: 0 };
-
-    if (event.key === "ArrowUp" || event.key === "w") {
-      movementDeltas.y -= 1;
-    } else if (event.key === "ArrowDown" || event.key === "s") {
-      movementDeltas.y += 1;
-    } else if (event.key === "ArrowLeft" || event.key === "a") {
-      movementDeltas.x -= 1;
-    } else if (event.key === "ArrowRight" || event.key === "d") {
-      movementDeltas.x += 1;
-    }
-
-    socket.emit("moveUser", [movementDeltas.x, movementDeltas.y]);
-  };
+    return () => document.removeEventListener("keydown", moveUser);
+  }, []);
 
   // Creates user
   const createUser = (e: any) => {
@@ -74,16 +78,8 @@ const SocketDemo = () => {
     }
   };
 
-  // for (const row of serverState.map) {
-  //   for (const cell of row) {
-  //     if (cell.length > 0) {
-  //       console.log(cell);
-  //     }
-  //   }
-  // }
-
   return (
-    <div className="h-full w-full p-4 flex flex-col">
+    <div className="h-full w-full p-4 flex flex-col bg-white text-black gap-y-8">
       <div className="mb-4">
         <div className="text-lg font-bold">
           Status:{" "}
