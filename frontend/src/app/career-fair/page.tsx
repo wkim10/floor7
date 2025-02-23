@@ -2,6 +2,7 @@
 
 import React from "react";
 import CareerFairTemplate from "@/components/CareerFairTemplate";
+import RoomMap from "@/components/RoomMap";
 
 export default function CareerFair() {
   const [joinModal, setJoinModal] = React.useState(false);
@@ -11,6 +12,7 @@ export default function CareerFair() {
   return (
     <div>
       <CareerFairTemplate />
+      <RoomMap />
       {joinModal ? (
         <div className="fixed inset-0 flex items-center justify-center z-50">
           <div className="fixed inset-0 bg-[#101828] opacity-40" />

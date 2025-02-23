@@ -8,6 +8,8 @@ import Video from "@/components/video";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
+export const socket = io("http://localhost:8000");
+
 export default function Home() {
   const router = useRouter();
 
@@ -30,12 +32,12 @@ export default function Home() {
         >
           Register to attend
         </div>
-        <div
+        {/* <div
           onClick={() => router.push("/welcome-back")}
           className="shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] bg-[#273CB2] cursor-pointer rounded-xl p-3 text-white"
         >
           Continue to Career Fair
-        </div>
+        </div> */}
       </div>
       <Video />
     </div>

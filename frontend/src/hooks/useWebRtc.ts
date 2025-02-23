@@ -1,5 +1,6 @@
 import { socket } from "@/app/page";
 import useAppStore from "@/store";
+import React from "react";
 import { RefObject, useCallback, useEffect, useRef } from "react";
 import { useShallow } from "zustand/shallow";
 
@@ -33,7 +34,12 @@ export const useWebRtc = ({ meVideoRef, otherVideoRef }: UseWebRtcProps) => {
       setOther: state.setOther,
     }))
   );
-  const pcRef = useRef<RTCPeerConnection>(new RTCPeerConnection(configuration));
+
+  const pcRef = useRef<RTCPeerConnection>(null);
+
+  React.useEffect(() => {
+    pcRef.current = new RTCPeerConnection(configuration)
+  }, [])
   const localStreamRef = useRef<MediaStream>(null);
   const remoteStreamRef = useRef<MediaStream>(null);
 
@@ -43,7 +49,10 @@ export const useWebRtc = ({ meVideoRef, otherVideoRef }: UseWebRtcProps) => {
       // const pc = new RTCPeerConnection(configuration);
       const pc = pcRef.current;
       pcRef.current = pc;
-
+      if (!pc) {
+        console.log("Null PCREF");
+        return;
+      }
       const offer = await pc.createOffer();
       await pc.setLocalDescription(offer);
 
@@ -85,6 +94,8 @@ export const useWebRtc = ({ meVideoRef, otherVideoRef }: UseWebRtcProps) => {
       const pc = pcRef.current;
       pcRef.current = pc;
 
+      if (pc === null) { return };
+
       await pc.setRemoteDescription(new RTCSessionDescription(offer));
 
       const answer = await pc.createAnswer();
@@ -119,6 +130,8 @@ export const useWebRtc = ({ meVideoRef, otherVideoRef }: UseWebRtcProps) => {
     const remoteStream = new MediaStream();
     remoteStreamRef.current = remoteStream;
 
+    if (pc === null) { return };
+    
     localStream.getTracks().forEach((track) => {
       pc.addTrack(track, localStream);
     });

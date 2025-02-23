@@ -4,6 +4,8 @@ import React from "react";
 import Profile from "@/components/Profile";
 
 export default function CreateProfile() {
+  const [showModal, setShowModal] = React.useState(false);
+
   const createMockFile = () => {
     return new File([""], "won_kim_resume.pdf", {
       type: "application/pdf",
@@ -21,7 +23,7 @@ export default function CreateProfile() {
 
   return (
     <div>
-      <Profile edit={true} initialData={initialData} />
+      <Profile edit={true} initialData={initialData} setShowModal={setShowModal} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -16,9 +16,10 @@ type ProfileData = {
 interface ProfileProps {
   edit?: boolean;
   initialData?: ProfileData;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function Profile({ edit, initialData }: ProfileProps) {
+export default function Profile({ edit, initialData, setShowModal }: ProfileProps) {
   const router = useRouter();
 
   const [name, setName] = React.useState(initialData?.name || "");
@@ -59,12 +60,15 @@ export default function Profile({ edit, initialData }: ProfileProps) {
       setIsSaved(true);
       setTimeout(() => setIsSaved(false), 2000);
     } else {
-      router.push("/career-fair");
+      setShowModal(false);
+      // router.push("/career-fair");
     }
   };
 
   return (
-    <div className="flex flex-col gap-6 mt-[45px] items-center">
+    <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="fixed inset-0 bg-[#101828] opacity-40" />
+    <div className="flex flex-col gap-6 mt-[45px] items-center relative">
       {edit ? (
         <div
           onClick={() => router.push("/career-fair")}
@@ -258,6 +262,7 @@ export default function Profile({ edit, initialData }: ProfileProps) {
       >
         {edit ? (isSaved ? "Saved ✓" : "Save Changes") : "Enter career fair"}
       </div>
+    </div>
     </div>
   );
 }
