@@ -32,12 +32,12 @@ export class ServerState {
     this.proximityMap = {};
   }
 
-  public addUser(username: string, socket: Socket) {
+  public addUser(username: string, avatar: string, socket: Socket) {
     const spawnX = 0;
     const spawnY = 0;
     const user: User = {
       coordinate: [spawnX, spawnY],
-      avatar: "avatar",
+      avatar,
       username: username,
     };
     this.connections[socket.id] = user;

@@ -34,10 +34,10 @@ io.on("connection", (socket: socket.Socket) => {
   });
 
   // Create user from frontend
-  socket.on("createUser", (username: string) => {
+  socket.on("createUser", (username: string, avatar: string) => {
     console.log("Creating user for current socket: ", socket.id);
 
-    serverState.addUser(username, socket);
+    serverState.addUser(username, avatar, socket);
     const user = serverState.connections[socket.id];
     console.log(serverState.map[user.coordinate[0]][user.coordinate[1]]);
 

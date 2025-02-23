@@ -12,14 +12,23 @@ export interface User {
 interface Conversation {
   user1: UserId;
   user2: UserId;
-  messages: { timestamp: number; message: string }[];
+  // messages: { timestamp: number; message: string }[]; 
+  timestamp: number;
+}
+
+type TileItem = User | Booth
+
+interface Booth {
+  companyName: string; // conversationId, since we're assuming 1-on-1 
+  userId: string; // recruiter - user?
+  socketId: string,
 }
 
 export class ServerState {
   public connections: Record<Socket["id"], User> = {};
   public conversations: Record<ConversationId, Conversation> = {};
   public proximityMap: Record<Socket["id"], Socket["id"][]> = {};
-  public map: [Socket["id"], User][][][] = [[[]]];
+  public map: [Socket["id"], TileItem][][][] = [[[]]];
   // 2d map where each tile has a list of [socketId, User] pairs
 
   constructor() {
@@ -32,12 +41,12 @@ export class ServerState {
     this.proximityMap = {};
   }
 
-  public addUser(username: string, socket: Socket) {
+  public addUser(username: string, avatar: string, socket: Socket) {
     const spawnX = 0;
     const spawnY = 0;
     const user: User = {
       coordinate: [spawnX, spawnY],
-      avatar: "avatar",
+      avatar,
       username: username,
     };
     this.connections[socket.id] = user;

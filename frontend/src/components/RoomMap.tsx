@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { io } from "socket.io-client";
 import { ServerState, User } from "@/app/types";
 import useAppStore from "@/store";
 import Video from "@/components/video";
+import { socket } from "@/app/page";
+import Image from "next/image";
+import { randomUUID } from "crypto";
 
-export const socket = io("http://localhost:8000");
-
-const RoomMap = () => {
+export const RoomMap = () => {
   const {
     username,
     setUsername,
@@ -18,8 +18,6 @@ const RoomMap = () => {
     setServerState,
   } = useAppStore();
 
-  const id = socket["id"];
-  console.log(id);
   const tileSizeInPixels: number = 40;
 
   useEffect(() => {
@@ -78,57 +76,13 @@ const RoomMap = () => {
       setUsername("");
     }
   };
+  const user = serverState.connections[socket.id ?? ""];
+  if (!user) {
+    return;
+  }
 
   return (
     <div className="h-full w-full p-4 flex flex-col bg-white text-black gap-y-8">
-      <div className="mb-4">
-        <div className="text-lg font-bold">
-          Status:{" "}
-          {connected ? (
-            <span className="text-green-600">Connected</span>
-          ) : (
-            <span className="text-red-600">Disconnected</span>
-          )}
-        </div>
-      </div>
-
-      <form onSubmit={createUser} className="mb-4">
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="border p-2 rounded mr-2"
-          placeholder="Choose a username"
-        />
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          Create user
-        </button>
-      </form>
-
-      <div>
-        {Object.values(serverState.connections).map((user: User, index) => {
-          return (
-            <div key={index}>
-              <p
-                style={{
-                  position: "absolute",
-                  left: user.coordinate[0],
-                  top: user.coordinate[1],
-                  transition: "0.1s ease",
-                }}
-              >
-                {user.username}
-              </p>
-              <p key={user.username}>
-                x: {user.coordinate[0]}, y: {user.coordinate[1]}
-              </p>
-            </div>
-          );
-        })}
-      </div>
       <div
         style={{
           display: "grid",
@@ -141,42 +95,32 @@ const RoomMap = () => {
           block.map((users, colIndex) => {
             const tileKey = `${rowIndex}-${colIndex}`;
             return (
-              <div
-                key={tileKey}
-                style={{
-                  width: tileSizeInPixels,
-                  height: tileSizeInPixels,
-                  backgroundColor: `${
-                    users.length > 0
-                      ? users.length > 1
-                        ? "purple"
-                        : "red"
-                      : "lightblue"
-                  }`,
-                  border: "1px solid black",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  position: "relative",
-                }}
-              >
-                {users.length > 0 && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "-20px",
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      whiteSpace: "nowrap",
-                      fontSize: "12px",
-                      backgroundColor: "rgba(255, 255, 255, 0.8)",
-                      padding: "2px 4px",
-                      borderRadius: "4px",
-                    }}
-                  >
-                    {users.map((user) => user[1].username).join(", ")}
-                  </div>
-                )}
+              <div key={tileKey + colIndex} className="relative">
+                {/* Find all users at this coordinate */}
+                {Object.values(serverState.connections).map((mappedUser) => {
+                  if (
+                    mappedUser.coordinate[0] === rowIndex &&
+                    mappedUser.coordinate[1] === colIndex
+                  ) {
+                    return (
+                      <div
+                        key={mappedUser.username}
+                        className="absolute top-0 left-0"
+                      >
+                        <Image
+                          alt={`Avatar for ${mappedUser.username}`}
+                          src={`/images/avatar${parseInt(mappedUser.avatar)}.png`}
+                          width={32}
+                          height={32}
+                        />
+                        <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 whitespace-nowrap text-xs bg-white/80 px-2 py-1 rounded">
+                          {mappedUser.username}
+                        </div>
+                      </div>
+                    );
+                  }
+                  return null;
+                })}
               </div>
             );
           })

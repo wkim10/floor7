@@ -3,6 +3,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { socket } from "@/app/page";
 
 type ProfileData = {
   name: string;
@@ -61,14 +62,16 @@ export default function Profile({ edit, initialData, setShowModal }: ProfileProp
       setTimeout(() => setIsSaved(false), 2000);
     } else {
       setShowModal(false);
+      
+      socket.emit("createUser", name, `00${currentAvatar}`);
       // router.push("/career-fair");
     }
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
+    <div className="fixed inset-0 flex items-center justify-center z-50 overflow-hidden">
           <div className="fixed inset-0 bg-[#101828] opacity-40" />
-    <div className="flex flex-col gap-6 mt-[45px] items-center relative">
+    <div className="flex flex-col gap-6 mt-[45px] items-center relative max-h-screen overflow-y-auto">
       {edit ? (
         <div
           onClick={() => router.push("/career-fair")}
