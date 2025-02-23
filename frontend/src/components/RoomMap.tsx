@@ -45,13 +45,13 @@ export const RoomMap = () => {
     const moveUser = (event: KeyboardEvent) => {
       const movementDeltas = { x: 0, y: 0 };
 
-      if (event.key === "ArrowUp" || event.key === "w") {
+      if (event.key === "w") {
         movementDeltas.y -= 1;
-      } else if (event.key === "ArrowDown" || event.key === "s") {
+      } else if (event.key === "s") {
         movementDeltas.y += 1;
-      } else if (event.key === "ArrowLeft" || event.key === "a") {
+      } else if (event.key === "a") {
         movementDeltas.x -= 1;
-      } else if (event.key === "ArrowRight" || event.key === "d") {
+      } else if (event.key === "d") {
         movementDeltas.x += 1;
       }
 
