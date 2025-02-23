@@ -1,4 +1,4 @@
-import { socket } from "@/app/page";
+import { socket } from "@/app/intro/page";
 import useAppStore from "@/store";
 import { RefObject, useCallback, useEffect, useRef } from "react";
 import { useShallow } from "zustand/shallow";
