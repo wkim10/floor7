@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { ServerState } from "@/app/types";
 import useAppStore from "@/store";
-import Video from "@/components/video";
 import { socket } from "@/app/page";
 import Image from "next/image";
 import defaultMap from "@/utils/defaultMap.json";
@@ -51,35 +50,38 @@ export const RoomMap = () => {
   const [isTyping, setIsTyping] = useState(false);
 
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const MESSAGE_DURATION = 5000; // 5 seconds
+  const MESSAGE_DURATION = 3000;
 
   useEffect(() => {
     socket.on("receiveMessage", ({ message, username, timestamp }) => {
+      console.log("receiveMessage", message, username, timestamp);
+      // Remove previous message from same user and add new one
       setMessages((prev) => [
-        ...prev,
-        { message, username, timestamp, isVisible: true },
+        ...prev.filter((msg) => msg.username !== username),
+        {
+          message: message.replace(/^\//, ""), // Remove leading slash
+          username,
+          timestamp,
+          isVisible: true,
+        },
       ]);
 
-      // Set up timeout to fade out message
+      // First set to invisible after duration
       setTimeout(() => {
         setMessages((prev) =>
           prev.map((msg) =>
             msg.timestamp === timestamp ? { ...msg, isVisible: false } : msg
           )
         );
-
-        // Remove message from state after fade animation
-        setTimeout(() => {
-          setMessages((prev) =>
-            prev.filter((msg) => msg.timestamp !== timestamp)
-          );
-        }, 1000);
       }, MESSAGE_DURATION);
-    });
 
-    return () => {
-      socket.off("receiveMessage");
-    };
+      // Then remove after animation
+      setTimeout(() => {
+        setMessages((prev) =>
+          prev.filter((msg) => msg.timestamp !== timestamp)
+        );
+      }, MESSAGE_DURATION + 1000);
+    });
   }, []);
 
   useEffect(() => {
@@ -93,22 +95,48 @@ export const RoomMap = () => {
     };
 
     const handleKeyUp = (event: KeyboardEvent) => {
-      if (!isChatVisible) return;
+      if (event.key === "Enter") {
+        const processedMessage = chatMessage.replace(/^\//, "").trim();
 
-      if (event.key === "Enter" && chatMessage.trim()) {
-        socket.emit("sendMessage", {
-          message: chatMessage,
-          socketId: socket.id,
-        });
+        if (processedMessage) {
+          const tempTimestamp = Date.now();
+          setMessages((prev) => [
+            ...prev.filter((msg) => msg.username !== user?.username),
+            {
+              message: processedMessage,
+              username: user?.username || "",
+              timestamp: tempTimestamp,
+              isVisible: true,
+              coordinates: user.coordinate,
+            },
+          ]);
+
+          // Schedule visibility and removal
+          setTimeout(() => {
+            setMessages((prev) =>
+              prev.map((msg) =>
+                msg.timestamp === tempTimestamp
+                  ? { ...msg, isVisible: false }
+                  : msg
+              )
+            );
+          }, MESSAGE_DURATION);
+
+          setTimeout(() => {
+            setMessages((prev) =>
+              prev.filter((msg) => msg.timestamp !== tempTimestamp)
+            );
+          }, MESSAGE_DURATION + 1000);
+
+          socket.emit("sendMessage", {
+            message: processedMessage,
+            userId: socket.id,
+          });
+        }
+
         setChatMessage("");
         setIsChatVisible(false);
-        setIsTyping(false); // Re-enable movement
-      }
-
-      if (event.key === "Escape") {
-        setChatMessage("");
-        setIsChatVisible(false);
-        setIsTyping(false); // Re-enable movement
+        setIsTyping(false);
       }
     };
 
@@ -138,17 +166,17 @@ export const RoomMap = () => {
         {mappedUser.username}
       </div>
 
-      {/* Chat messages - update filter to use username */}
       {messages
         .filter((msg) => msg.username === mappedUser.username && msg.isVisible)
         .map((msg) => (
           <div
             key={msg.timestamp}
-            className="absolute -top-14 left-1/2 transform -translate-x-1/2 
-                     whitespace-nowrap text-sm bg-black/75 text-white px-3 py-1 
-                     rounded-full transition-opacity duration-1000"
+            className="absolute -top-7 left-1/2 transform -translate-x-1/2 
+           whitespace-nowrap text-sm bg-black/75 text-white px-3 py-1 
+           rounded-full transition-all duration-500"
             style={{
               opacity: msg.isVisible ? 1 : 0,
+              transform: `translate(-50%, ${msg.isVisible ? "-100%" : "-80%"})`,
             }}
           >
             {msg.message}
@@ -184,7 +212,6 @@ export const RoomMap = () => {
 
     socket.on("serverStateUpdate", (newServerState: ServerState) => {
       console.log("serverState updated", newServerState);
-      // console.log("first tile", newServerState.map[0][0]);
       setServerState(newServerState);
     });
 
@@ -226,7 +253,6 @@ export const RoomMap = () => {
       socket.off("connect");
       socket.off("disconnect");
       socket.off("serverStateUpdate");
-      socket.off("receiveMessage");
     };
   }, [serverState, setServerState, setConnected]);
 

@@ -28,10 +28,6 @@ io.on("connection", (socket: socket.Socket) => {
   socket.emit("serverStateUpdate", serverState);
 
   // Handle incoming messages
-  socket.on("sendMessage", (message: string) => {
-    console.log("Message received:", message);
-    io.emit("serverStateUpdate", serverState);
-  });
 
   // Create user from frontend
   socket.on("createUser", (username: string, avatar: string) => {
@@ -105,9 +101,13 @@ io.on("connection", (socket: socket.Socket) => {
       }
     }
   });
+
   socket.on("sendMessage", (data: { message: string; userId: string }) => {
-    // Broadcast the message to all clients including sender
-    const user = serverState.connections[socket["id"]];
+    // Get user from connections using the received userId (socket.id)
+    const user = serverState.connections[data.userId];
+    if (!user) return;
+
+    // Broadcast to all clients including sender
     io.emit("receiveMessage", {
       message: data.message,
       username: user.username,
