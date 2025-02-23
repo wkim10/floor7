@@ -26,8 +26,8 @@ export const RoomMap = () => {
   } = useAppStore();
 
   const [showJoinChatModal, setShowJoinChatModal] = useState<boolean>(false);
-  const [showOccupiedModal, setShowOccupiedModal] = useState<boolean>(false);
-  const [showWebRTCModal, setShowWebRTCModal] = useState<boolean>(false);
+  // const [showOccupiedModal, setShowOccupiedModal] = useState<boolean>(false);
+  // const [showWebRTCModal, setShowWebRTCModal] = useState<boolean>(false);
 
   // const tileSizeInPixels: number = 24;
 
@@ -38,7 +38,9 @@ export const RoomMap = () => {
   const [showMathWorksModal, setShowMathWorksModal] = React.useState(false);
   const [showNvidiaModal, setShowNvidiaModal] = React.useState(false);
 
-  const [showConversation, setShowConversation] = React.useState(true);
+  const [showConversation, setShowConversation] = React.useState(false);
+
+  const [other, setOther] = useState<string>();
 
   useEffect(() => {
     // Connection status
@@ -64,29 +66,38 @@ export const RoomMap = () => {
       }
     });
 
-    socket.on("showOccupiedModal", (socketId) => {
-      if (socketId === socket.id) {
-        setShowOccupiedModal(true);
-      }
-    });
+    // socket.on("showOccupiedModal", (socketId) => {
+    //   if (socketId === socket.id) {
+    //     setShowOccupiedModal(true);
+    //   }
+    // });
 
     socket.on("startConvo", ({ newServerState, convoId, conversation }) => {
       console.log(newServerState, convoId, conversation);
       if (socket.id != undefined) {
-        console.log(
-          "socketid found but connections",
-          newServerState.connections
-        );
         const username = newServerState.connections[socket.id].username;
         if (
           username === conversation.user1 ||
           username === conversation.user2
         ) {
-          console.log("Start convo", convoId, conversation);
-          setShowWebRTCModal(true);
+          const otherUsername =
+            username === conversation.user1
+              ? conversation.user2
+              : conversation.user1;
+          var otherSocketId = "";
+          for (let key of Object.keys(newServerState.connections)) {
+            if (newServerState.connections[key].username === otherUsername) {
+              otherSocketId = key;
+            }
+          }
+          if (username === conversation.user1) {
+            setOther(otherSocketId);
+          }
+
+          setShowConversation(true);
         }
       } else {
-        console.log("socketid not foun in startConvo");
+        console.log("socketid not found in startConvo");
       }
     });
 
@@ -133,6 +144,15 @@ export const RoomMap = () => {
 
   return (
     <>
+      {showJoinChatModal && (
+        <div
+          className="text-red absolute top-50 left-50"
+          onClick={() => joinConversation()}
+        >
+          Join convo???
+        </div>
+      )}
+
       {showAppleModal ? <Apple setShowModal={setShowAppleModal} /> : null}
       {showMathWorksModal ? (
         <MathWorks setShowModal={setShowMathWorksModal} />
@@ -142,7 +162,7 @@ export const RoomMap = () => {
       {showMetaModal ? <Meta setShowModal={setShowMetaModal} /> : null}
       {showSpotifyModal ? <Spotify setShowModal={setShowSpotifyModal} /> : null}
       {showConversation ? (
-        <Conversation setShowModal={setShowConversation} />
+        <Conversation other={other} setShowModal={setShowConversation} />
       ) : null}
       <div className="h-full w-full p-4 flex flex-col bg-white text-black gap-y-8 mt-24">
         <div
@@ -230,7 +250,6 @@ export const RoomMap = () => {
             })
           )}
         </div>
-        {/* <Video /> */}
       </div>
     </>
   );

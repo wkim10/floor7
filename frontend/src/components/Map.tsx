@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { socket } from "@/app/page";
 import { ServerState, User } from "@/app/types";
 import useAppStore from "@/store";
@@ -6,14 +6,8 @@ import { useEffect } from "react";
 import Video from "./video";
 
 const Map = () => {
-  const {
-    username,
-    setUsername,
-    connected,
-    setConnected,
-    serverState,
-    setServerState,
-  } = useAppStore();
+  const { connected, setConnected, serverState, setServerState } =
+    useAppStore();
 
   const tileSizeInPixels: number = 40;
 
@@ -64,15 +58,6 @@ const Map = () => {
     document.addEventListener("keydown", moveUser);
     return () => document.removeEventListener("keydown", moveUser);
   }, []);
-
-  // Creates user
-  const createUser = (e: any) => {
-    e.preventDefault();
-    if (username.trim()) {
-      socket.emit("createUser", username);
-      setUsername("");
-    }
-  };
 
   return (
     <div className="h-full w-full p-4 flex flex-col bg-white text-black gap-y-8">
@@ -161,7 +146,6 @@ const Map = () => {
           })
         )}
       </div>
-      <Video />
     </div>
   );
 };

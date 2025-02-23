@@ -1,11 +1,12 @@
 import Video from "./video";
 
 interface props {
+  other?: string;
   company?: string;
   setShowModal: (showModal: boolean) => void;
 }
 
-export default function Conversation({ company, setShowModal }: props) {
+export default function Conversation({ other, company, setShowModal }: props) {
   const color =
     company === "spotify"
       ? "bg-[#1ED760]"

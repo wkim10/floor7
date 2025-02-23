@@ -39,7 +39,6 @@ export default function Home() {
           Continue to Career Fair
         </div> */}
       </div>
-      <Video />
     </div>
   );
 }
