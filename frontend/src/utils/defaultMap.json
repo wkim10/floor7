@@ -182,15 +182,18 @@
     },
     {
       "type": "booth",
-      "id": "booth1"
+      "id": "booth1",
+      "companyName": "spotify"
     },
     {
       "type": "booth",
-      "id": "booth1"
+      "id": "booth1",
+      "companyName": "spotify"
     },
     {
       "type": "booth",
-      "id": "booth1"
+      "id": "booth1",
+      "companyName": "spotify"
     },
     {
       "type": "empty",
@@ -210,15 +213,18 @@
     },
     {
       "type": "booth",
-      "id": "booth2"
+      "id": "booth2",
+      "companyName": "mathworks"
     },
     {
       "type": "booth",
-      "id": "booth2"
+      "id": "booth2",
+      "companyName": "mathworks"
     },
     {
       "type": "booth",
-      "id": "booth2"
+      "id": "booth2",
+      "companyName": "mathworks"
     },
     {
       "type": "empty",
@@ -238,15 +244,18 @@
     },
     {
       "type": "booth",
-      "id": "booth3"
+      "id": "booth3",
+      "companyName": "apple"
     },
     {
       "type": "booth",
-      "id": "booth3"
+      "id": "booth3",
+      "companyName": "apple"
     },
     {
       "type": "booth",
-      "id": "booth3"
+      "id": "booth3",
+      "companyName": "apple"
     },
     {
       "type": "empty",
@@ -268,43 +277,18 @@
     },
     {
       "type": "booth",
-      "id": "booth1"
+      "id": "booth1",
+      "companyName": "spotify"
     },
     {
       "type": "booth",
-      "id": "booth1"
+      "id": "booth1",
+      "companyName": "spotify"
     },
     {
       "type": "booth",
-      "id": "booth1"
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "booth",
-      "id": "booth2"
-    },
-    {
-      "type": "booth",
-      "id": "booth2"
-    },
-    {
-      "type": "booth",
-      "id": "booth2"
+      "id": "booth1",
+      "companyName": "spotify"
     },
     {
       "type": "empty",
@@ -324,29 +308,18 @@
     },
     {
       "type": "booth",
-      "id": "booth3"
+      "id": "booth2",
+      "companyName": "mathworks"
     },
     {
       "type": "booth",
-      "id": "booth3"
+      "id": "booth2",
+      "companyName": "mathworks"
     },
     {
       "type": "booth",
-      "id": "booth3"
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    }
-  ],
-  [
-    {
-      "type": "empty",
-      "id": ""
+      "id": "booth2",
+      "companyName": "mathworks"
     },
     {
       "type": "empty",
@@ -365,60 +338,19 @@
       "id": ""
     },
     {
-      "type": "empty",
-      "id": ""
+      "type": "booth",
+      "id": "booth3",
+      "companyName": "apple"
     },
     {
-      "type": "empty",
-      "id": ""
+      "type": "booth",
+      "id": "booth3",
+      "companyName": "apple"
     },
     {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
-    },
-    {
-      "type": "empty",
-      "id": ""
+      "type": "booth",
+      "id": "booth3",
+      "companyName": "apple"
     },
     {
       "type": "empty",
@@ -525,16 +457,20 @@
       "id": ""
     },
     {
-      "type": "booth",
-      "id": "booth4"
+      "type": "empty",
+      "id": ""
     },
     {
-      "type": "booth",
-      "id": "booth4"
+      "type": "empty",
+      "id": ""
     },
     {
-      "type": "booth",
-      "id": "booth4"
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
     },
     {
       "type": "empty",
@@ -553,16 +489,20 @@
       "id": ""
     },
     {
-      "type": "booth",
-      "id": "booth5"
+      "type": "empty",
+      "id": ""
     },
     {
-      "type": "booth",
-      "id": "booth5"
+      "type": "empty",
+      "id": ""
     },
     {
-      "type": "booth",
-      "id": "booth5"
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
     },
     {
       "type": "empty",
@@ -581,16 +521,8 @@
       "id": ""
     },
     {
-      "type": "booth",
-      "id": "booth6"
-    },
-    {
-      "type": "booth",
-      "id": "booth6"
-    },
-    {
-      "type": "booth",
-      "id": "booth6"
+      "type": "empty",
+      "id": ""
     },
     {
       "type": "empty",
@@ -612,15 +544,18 @@
     },
     {
       "type": "booth",
-      "id": "booth4"
+      "id": "booth4",
+      "companyName": "meta"
     },
     {
       "type": "booth",
-      "id": "booth4"
+      "id": "booth4",
+      "companyName": "meta"
     },
     {
       "type": "booth",
-      "id": "booth4"
+      "id": "booth4",
+      "companyName": "meta"
     },
     {
       "type": "empty",
@@ -640,15 +575,18 @@
     },
     {
       "type": "booth",
-      "id": "booth5"
+      "id": "booth5",
+      "companyName": "nvidia"
     },
     {
       "type": "booth",
-      "id": "booth5"
+      "id": "booth5",
+      "companyName": "nvidia"
     },
     {
       "type": "booth",
-      "id": "booth5"
+      "id": "booth5",
+      "companyName": "nvidia"
     },
     {
       "type": "empty",
@@ -668,15 +606,113 @@
     },
     {
       "type": "booth",
-      "id": "booth6"
+      "id": "booth6",
+      "companyName": "epic"
     },
     {
       "type": "booth",
-      "id": "booth6"
+      "id": "booth6",
+      "companyName": "epic"
     },
     {
       "type": "booth",
-      "id": "booth6"
+      "id": "booth6",
+      "companyName": "epic"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    }
+  ],
+  [
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "booth",
+      "id": "booth4",
+      "companyName": "meta"
+    },
+    {
+      "type": "booth",
+      "id": "booth4",
+      "companyName": "meta"
+    },
+    {
+      "type": "booth",
+      "id": "booth4",
+      "companyName": "meta"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "booth",
+      "id": "booth5",
+      "companyName": "nvidia"
+    },
+    {
+      "type": "booth",
+      "id": "booth5",
+      "companyName": "nvidia"
+    },
+    {
+      "type": "booth",
+      "id": "booth5",
+      "companyName": "nvidia"
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "empty",
+      "id": ""
+    },
+    {
+      "type": "booth",
+      "id": "booth6",
+      "companyName": "epic"
+    },
+    {
+      "type": "booth",
+      "id": "booth6",
+      "companyName": "epic"
+    },
+    {
+      "type": "booth",
+      "id": "booth6",
+      "companyName": "epic"
     },
     {
       "type": "empty",
