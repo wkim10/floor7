@@ -109,7 +109,7 @@ export default function CareerFairTemplate() {
           {/* <div className="font-bold select-none shadow-[0_0_8px_0_rgba(0,0,0,0.25)] gap-2 p-3 rounded-xl bg-white bg-opacity-90 z-50">
             Your position (Spotify): 4
           </div> */}
-          <div className="shadow-[0_0_8px_0_rgba(0,0,0,0.25)] flex items-center justify-between w-[183px] p-3 rounded-xl bg-white bg-opacity-90 z-50">
+          {/* <div className="shadow-[0_0_8px_0_rgba(0,0,0,0.25)] flex items-center justify-between w-[183px] p-3 rounded-xl bg-white bg-opacity-90 z-50">
             <div className="flex items-center gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -197,7 +197,7 @@ export default function CareerFairTemplate() {
                 </g>
               </svg>
             )}
-          </div>
+          </div> */}
         </div>
         {showNotes ? (
           <div className="self-end flex flex-col gap-[10px] w-[253px] shadow-[0_0_8px_0_rgba(0,0,0,0.25)] p-3 rounded-xl bg-white bg-opacity-90">
