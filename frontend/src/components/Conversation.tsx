@@ -34,13 +34,7 @@ export default function Conversation({ other, company, setShowModal }: props) {
         <div
           className={`flex gap-9 p-11 ${color} w-[80%] h-[70%] border-[6px] border-solid border-black rounded-xl`}
         >
-          <Video />
-        </div>
-        <div
-          onClick={() => setShowModal(false)}
-          className="bg-black cursor-pointer rounded-xl p-3 text-white bg-opacity-60 mt-4"
-        >
-          Leave Conversation
+          <Video setShowModal={setShowModal}/>
         </div>
       </div>
     </div>

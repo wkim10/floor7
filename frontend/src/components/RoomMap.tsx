@@ -21,6 +21,7 @@ export const RoomMap = () => {
     setUsername,
     connected,
     setConnected,
+    setOther,
     serverState,
     setServerState,
   } = useAppStore();
@@ -75,11 +76,13 @@ export const RoomMap = () => {
       }
     });
 
-    // socket.on("showOccupiedModal", (socketId) => {
-    //   if (socketId === socket.id) {
-    //     setShowOccupiedModal(true);
-    //   }
-    // });
+    socket.on("hideJoinModal", (socketId) => {
+      console.log("Calling hideJoinModal", socketId, socket.id);
+      if (socketId === socket.id) {
+        console.log("Hiding join modal");
+        setShowJoinChatModal(false);
+      }
+    });
 
     //   socket.on("startConvo", ({ newServerState, convoId, conversation }) => {
     //     console.log(newServerState, convoId, conversation);
@@ -132,7 +135,6 @@ export const RoomMap = () => {
           username === conversation.user2
         ) {
           console.log("Start convo", convoId, conversation);
-          setShowWebRTCModal(true);
           const otherUsername =
             username === conversation.user1
               ? conversation.user2
@@ -143,8 +145,12 @@ export const RoomMap = () => {
               otherSocketId = key;
             }
           }
+
+          // Always ensure it's one person calling, not both
           if (username === conversation.user1) {
             setOther(otherSocketId);
+          } else {
+            setOther(undefined);
           }
 
           setShowConversation(true);
@@ -202,11 +208,11 @@ export const RoomMap = () => {
     return;
   }
 
-  // const joinConversation = () => {
-  //   // Backend will handle updating conversation mapping
-  //   socket.emit("joinConvo");
-  //   setShowJoinChatModal(false);
-  // };
+  const joinConversation = () => {
+    // Backend will handle updating conversation mapping
+    socket.emit("joinConvo");
+    setShowJoinChatModal(false);
+  };
 
   return (
     <>
@@ -277,6 +283,16 @@ export const RoomMap = () => {
         />
       ) : null}
       <div className="h-full w-full p-4 flex flex-col bg-white text-black gap-y-8 mt-24">
+        {showJoinChatModal && (
+          <div
+            className="absolute left-1/2 bottom-20 transform -translate-x-1/2 whitespace-nowrap cursor-pointer px-2 py-1 text-[12px] rounded-full bg-black bg-opacity-60 text-white z-20"
+            onClick={() => {
+              joinConversation();
+            }}
+          >
+            Join Chat
+          </div>
+        )}
         <div
           style={{
             display: "grid",

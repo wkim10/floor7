@@ -3,7 +3,6 @@ import { socket } from "@/app/intro/page";
 import { ServerState, User } from "@/app/types";
 import useAppStore from "@/store";
 import { useEffect } from "react";
-import Video from "./video";
 
 const Map = () => {
   const { connected, setConnected, serverState, setServerState } =
