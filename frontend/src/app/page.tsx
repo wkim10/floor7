@@ -2,71 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import { Socket } from "socket.io";
-import { ServerState } from "@backend";
-
-type UserId = string;
-
-type ConversationId = string;
-
-export interface User {
-  coordinate: [number, number];
-  avatar: any; // nani?
-  username: string;
-  // todo: Biography / resume?
-  // todo: Proximity ID
-}
-
-// interface Connection {
-//   socket: socket.Socket;
-//   user?: User;
-// }
-
-interface Conversation {
-  user1: UserId;
-  user2: UserId;
-  messages: { timestamp: number; message: string }[]; // unix timestamp
-}
-
-class ServerState {
-  public connections: Record<Socket["id"], User> = {};
-  public conversations: Record<ConversationId, Conversation> = {};
-  // private users: Record<Socket["id"], User> = {}; // TODO: Check for race conditions
-
-  constructor() {
-    this.connections = {};
-    this.conversations = {};
-    // this.users = {};
-  }
-
-  // Code to add user
-  public addUser(username: string, socket: Socket) {
-    // Assume they start at 50, 50
-    const spawnX = 50;
-    const spawnY = 50;
-
-    const user: User = {
-      coordinate: [spawnX, spawnY],
-      avatar: "avatar", // TODO: Get avatar
-      username: username,
-    };
-
-    this.connections[socket.id] = user;
-  }
-
-  // e.g. For when they log out
-  public removeUser(socket: Socket) {
-    if (!this.connections[socket.id]) return;
-
-    delete this.connections[socket.id];
-  }
-
-  // Code to move user
-  public moveUser(socketId: Socket["id"], x: number, y: number) {
-    this.connections[socketId].coordinate[0] = x;
-    this.connections[socketId].coordinate[1] = y;
-  }
-}
+import { ServerState, User } from "./types/index";
 
 const socket = io("http://localhost:8000");
 
@@ -76,6 +12,8 @@ const SocketDemo = () => {
   const [serverState, setServerState] = useState<ServerState>(
     new ServerState()
   );
+
+  const tileSizeInPixels: number = 40;
 
   useEffect(() => {
     // Connection status
@@ -89,9 +27,15 @@ const SocketDemo = () => {
       console.log("Disconnected from server");
     });
 
-    socket.on("serverStateUpdate", (serverState: ServerState) => {
-      setServerState(serverState);
+    socket.on("serverStateUpdate", (newServerState: ServerState) => {
+      console.log("serverState updated", newServerState);
+      // console.log("first tile", newServerState.map[0][0]);
+      setServerState(newServerState);
     });
+
+    socket.on("moveToTile", (x: number, y: number) => {});
+
+    setUpKeyboardEvents();
 
     return () => {
       socket.off("connect");
@@ -99,6 +43,27 @@ const SocketDemo = () => {
       socket.off("serverStateUpdate");
     };
   }, []);
+
+  const setUpKeyboardEvents = () => {
+    document.addEventListener("keydown", moveUser);
+  };
+
+  // Move user around
+  const moveUser = (event: KeyboardEvent) => {
+    const movementDeltas = { x: 0, y: 0 };
+
+    if (event.key === "ArrowUp" || event.key === "w") {
+      movementDeltas.y -= 1;
+    } else if (event.key === "ArrowDown" || event.key === "s") {
+      movementDeltas.y += 1;
+    } else if (event.key === "ArrowLeft" || event.key === "a") {
+      movementDeltas.x -= 1;
+    } else if (event.key === "ArrowRight" || event.key === "d") {
+      movementDeltas.x += 1;
+    }
+
+    socket.emit("moveUser", [movementDeltas.x, movementDeltas.y]);
+  };
 
   // Creates user
   const createUser = (e: any) => {
@@ -109,8 +74,16 @@ const SocketDemo = () => {
     }
   };
 
+  // for (const row of serverState.map) {
+  //   for (const cell of row) {
+  //     if (cell.length > 0) {
+  //       console.log(cell);
+  //     }
+  //   }
+  // }
+
   return (
-    <div className="p-4">
+    <div className="h-full w-full p-4 flex flex-col">
       <div className="mb-4">
         <div className="text-lg font-bold">
           Status:{" "}
@@ -137,6 +110,81 @@ const SocketDemo = () => {
           Create user
         </button>
       </form>
+
+      <div>
+        {Object.values(serverState.connections).map((user: User, index) => {
+          return (
+            <div key={index}>
+              <p
+                style={{
+                  position: "absolute",
+                  left: user.coordinate[0],
+                  top: user.coordinate[1],
+                  transition: "0.1s ease",
+                }}
+              >
+                {user.username}
+              </p>
+              <p key={user.username}>
+                x: {user.coordinate[0]}, y: {user.coordinate[1]}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: `repeat(${serverState.map.length}, ${40}px)`,
+          gridTemplateRows: `repeat(${serverState.map[0].length}, ${40}px)`,
+          gap: "0px",
+        }}
+      >
+        {serverState.map.map((block, rowIndex) =>
+          block.map((users, colIndex) => {
+            const tileKey = `${rowIndex}-${colIndex}`;
+            return (
+              <div
+                key={tileKey}
+                style={{
+                  width: tileSizeInPixels,
+                  height: tileSizeInPixels,
+                  backgroundColor: `${
+                    users.length > 0
+                      ? users.length > 1
+                        ? "purple"
+                        : "red"
+                      : "lightblue"
+                  }`,
+                  border: "1px solid black",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  position: "relative",
+                }}
+              >
+                {users.length > 0 && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "-20px",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      whiteSpace: "nowrap",
+                      fontSize: "12px",
+                      backgroundColor: "rgba(255, 255, 255, 0.8)",
+                      padding: "2px 4px",
+                      borderRadius: "4px",
+                    }}
+                  >
+                    {users.map((user) => user.username).join(", ")}
+                  </div>
+                )}
+              </div>
+            );
+          })
+        )}
+      </div>
     </div>
   );
 };

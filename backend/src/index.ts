@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import http from "http";
 import socket from "socket.io";
-import { ServerState } from "../types/index"
+import { ServerState } from "../types/index";
 
 const PORT = process.env.PORT || 8000;
 
@@ -25,7 +25,6 @@ const serverState = new ServerState();
 
 io.on("connection", (socket: socket.Socket) => {
   console.log("A client connected:", socket.id);
-
   socket.emit("serverStateUpdate", serverState);
 
   // Handle incoming messages
@@ -39,6 +38,9 @@ io.on("connection", (socket: socket.Socket) => {
     console.log("Creating user for current socket: ", socket.id);
 
     serverState.addUser(username, socket);
+    const user = serverState.connections[socket.id];
+    console.log(serverState.map[user.coordinate[0]][user.coordinate[1]]);
+
     io.emit("serverStateUpdate", serverState);
   });
 
@@ -51,18 +53,19 @@ io.on("connection", (socket: socket.Socket) => {
   });
 
   // Handle movement
-  socket.on(
-    "moveUser",
-    (socket: socket.Socket, coordinates: [number, number]) => {
-      const user = serverState.connections[socket.id];
-      // TODO: If user not found?
+  socket.on("moveUser", (deltas: [number, number]) => {
+    const user = serverState.connections[socket.id];
+    if (!user) return;
+    // TODO: If user not found?
 
-      console.log("User has moved: ", user);
-      serverState.moveUser(socket.id, coordinates[0], coordinates[1]);
+    serverState.moveUser(
+      user.coordinate[0] + deltas[1],
+      user.coordinate[1] + deltas[0],
+      socket
+    );
 
-      io.emit("serverStateUpdate", serverState);
-    }
-  );
+    io.emit("serverStateUpdate", serverState);
+  });
 });
 
 server.listen(PORT, () => {

@@ -1,64 +1,76 @@
 import socket, { Socket } from "socket.io";
 
 type UserId = string;
-
 type ConversationId = string;
 
 export interface User {
   coordinate: [number, number];
-  avatar: any; // nani?
+  avatar: any;
   username: string;
-  // todo: Biography / resume?
-  // todo: Proximity ID
 }
-
-// interface Connection {
-//   socket: socket.Socket;
-//   user?: User;
-// }
 
 interface Conversation {
   user1: UserId;
   user2: UserId;
-  messages: { timestamp: number; message: string }[]; // unix timestamp
+  messages: { timestamp: number; message: string }[];
 }
 
 export class ServerState {
   public connections: Record<Socket["id"], User> = {};
   public conversations: Record<ConversationId, Conversation> = {};
-  // private users: Record<Socket["id"], User> = {}; // TODO: Check for race conditions
+  public proximityMap: Record<Socket["id"], [Socket["id"]]> = {};
+  public map: User[][][] = [[[]]];
 
   constructor() {
     this.connections = {};
     this.conversations = {};
-    // this.users = {};
+    // Create empty arrays for each position in the map
+    this.map = Array.from({ length: 20 }, () =>
+      Array.from({ length: 20 }, () => [])
+    );
+    this.proximityMap = {};
   }
 
-  // Code to add user
   public addUser(username: string, socket: Socket) {
-    // Assume they start at 50, 50
-    const spawnX = 50;
-    const spawnY = 50;
-
+    const spawnX = 0;
+    const spawnY = 0;
     const user: User = {
       coordinate: [spawnX, spawnY],
-      avatar: "avatar", // TODO: Get avatar
+      avatar: "avatar",
       username: username,
     };
-
     this.connections[socket.id] = user;
+    this.map[spawnX][spawnY].push(user);
   }
 
-  // e.g. For when they log out
   public removeUser(socket: Socket) {
-    if (!this.connections[socket.id]) return;
+    const user = this.connections[socket.id];
+    if (!user) return;
 
+    // Remove user from the map before deleting from connections
+    const [x, y] = user.coordinate;
+    this.map[x][y] = this.map[x][y].filter((u) => u !== user);
     delete this.connections[socket.id];
   }
 
-  // Code to move user
-  public moveUser(socketId: Socket["id"], x: number, y: number) {
-    this.connections[socketId].coordinate[0] = x;
-    this.connections[socketId].coordinate[1] = y;
+  public moveUser(r: number, c: number, socket: Socket) {
+    const user = this.connections[socket.id];
+    if (!user) return;
+
+    // Bounds checking
+    if (r < 0 || r >= this.map.length || c < 0 || c >= this.map[0].length) {
+      return;
+    }
+
+    const [prevX, prevY] = user.coordinate;
+
+    // Remove from old position
+    this.map[prevX][prevY] = this.map[prevX][prevY].filter((u) => u !== user);
+
+    // Update coordinates
+    user.coordinate = [r, c];
+
+    // Add to new position
+    this.map[r][c].push(user);
   }
 }
